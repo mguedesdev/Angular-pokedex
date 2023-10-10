@@ -1,32 +1,21 @@
 <div class="home_container">
 
+  <div class="home_filter">
+    <app-filter></app-filter>
+  </div>
 
-    <div class="home_list-pokemon__title">
-      <h1>Lista de Pokemons</h1>
-    </div>
-    <div class="home_pokemon__list">
-      <app-small-card-pokemon></app-small-card-pokemon>
-      <app-small-card-pokemon></app-small-card-pokemon>
-      <app-small-card-pokemon></app-small-card-pokemon>
-      <app-small-card-pokemon></app-small-card-pokemon>
-      <app-small-card-pokemon></app-small-card-pokemon>
-      <app-small-card-pokemon></app-small-card-pokemon>
-      <app-small-card-pokemon></app-small-card-pokemon>
-      <app-small-card-pokemon></app-small-card-pokemon>
-      <app-small-card-pokemon></app-small-card-pokemon>
-      <app-small-card-pokemon></app-small-card-pokemon>
-      <app-small-card-pokemon></app-small-card-pokemon>
-      <app-small-card-pokemon></app-small-card-pokemon>
-      <app-small-card-pokemon></app-small-card-pokemon>
-      <app-small-card-pokemon></app-small-card-pokemon>
-      <app-small-card-pokemon></app-small-card-pokemon>
-      <app-small-card-pokemon></app-small-card-pokemon>
-      <app-small-card-pokemon></app-small-card-pokemon>
-      <app-small-card-pokemon></app-small-card-pokemon>
-    </div>
+  <div class="home_pokemon__list">
+    <app-small-card-pokemon
+      *ngFor="let pokemon of pokemons"
+      [imageUrl]="pokemon.sprites.other['official-artwork'].front_default"
+      [name]="pokemon.name"
+      [id]="pokemon.id"
+      [types]="getPokemonTypes(pokemon)">
+    </app-small-card-pokemon>
+  </div>
 
-    <div class="home_pokemon__list__pagination">
-      <button class="home_pokemon__list__pagination__button">Anterior</button>
-      <button class="home_pokemon__list__pagination__button">Próximo</button>
-    </div>
+  <div class="home_pokemon__list__pagination">
+    <button class="home_pokemon__list__pagination__button" (click)="previousPage()">Anterior</button>
+    <button class="home_pokemon__list__pagination__button" (click)="nextPage()">Próximo</button>
+  </div>
 </div>

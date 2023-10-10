@@ -1,11 +1,12 @@
 <div class="card_container">
   <div class="card_image">
-    <img src="assets/icon/pokedex-icon.png" alt="">
+    <div class="card_background" [ngStyle]="{'background-color': getBackgroundColorForType(types[0])}"></div>
+    <img [src]="imageUrl" alt="{{name}}">
   </div>
   <div class="card_name">
-    <p>Pikachu - 0000</p>
+    <p>{{name}} - {{id}}</p>
   </div>
   <div class="card_type">
-    Poison - Fire
+    {{types.join(' - ')}}
   </div>
 </div>

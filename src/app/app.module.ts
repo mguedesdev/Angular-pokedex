@@ -5,30 +5,32 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { SmallCardPokemonComponent } from './components/small-card-pokemon/small-card-pokemon.component';
 import { PokedexViewerComponent } from './components/pokedex-viewer/pokedex-viewer.component';
 import { TeamComponent } from './pages/team/team.component';
 import { PokemonComponent } from './pages/pokemon/pokemon.component';
 import { WhoPokemonComponent } from './pages/who-pokemon/who-pokemon.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { FilterComponent } from './components/filter/filter.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     MenuComponent,
-    SearchBarComponent,
     SmallCardPokemonComponent,
     PokedexViewerComponent,
     TeamComponent,
     PokemonComponent,
     WhoPokemonComponent,
-    FooterComponent
+    FooterComponent,
+    FilterComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -13,26 +13,29 @@
   --cinza: #d4dadd;
   --cinza-escuro: #969c9f;
 
-  --vermelho-g: linear-gradient(to top, #fb1d51 0%, #fa5939 90%);
+  --peg: linear-gradient(to top, var(--poison) 0%, var(--ghost) 90%);
 
-  --fire: #ff4b42;
-  --grass: #77dd77;
-  --water: #74a7e4;
-  --electric: #ffff51;
-  --bug: #a8b820;
+  --normal: #A8A878;
+  --fighting: #C03028;
+  --flying: #A890F0;
+  --poison: #A040A0;
+  --ground: #E0C068;
+  --rock: #B8A038;
+  --bug: #A8B820;
+  --ghost: #705898;
+  --steel: #B8B8D0;
+  --fire: #F08030;
+  --water: #6890F0;
+  --grass: #78C850;
+  --electric: #F8D030;
+  --psychic: #F85888;
+  --ice: #98D8D8;
+  --dragon: #7038F8;
   --dark: #3c3c3c;
-  --dragon: #6f35fc;
   --fairy: #e397d1;
-  --fighting: #b8282e;
-  --flying: #a890f0;
-  --ghost: #735797;
-  --ground: #e0c068;
-  --ice: #96d9d6;
-  --normal: #a8a878;
-  --poison: #a040a1;
-  --psychic: #f85888;
-  --rock: #b8a038;
-  --steel: #b8b8d0;
+  --unknown: #68A090;
+  --shadow: #493963;
+
 
 }
 

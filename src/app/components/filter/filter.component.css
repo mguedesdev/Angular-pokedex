@@ -1,0 +1,73 @@
+.filter_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  background-image: linear-gradient(to top right, #f54d7a 0%, #ec6041 100%);;
+  color: var(--branco);
+  width: 100%;
+  height: 100%;
+  padding: 30px 0px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.search, .filter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 30%;
+}
+
+.filter_item > label{
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.filter_item > select{
+  width: 100%;
+  height: 100%;
+  padding: 5px 10px;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.filter_item > input{
+  width: 100%;
+  height: 100%;
+  padding: 5px 10px;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.filter_item > input:focus, .filter_item > select:focus{
+  outline: none;
+}
+
+.filter_item {
+  width: 100%;
+  margin: 0px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.filter_btn {
+  padding: 10px 50px;
+  border: none;
+  font-size: 18px;
+  background-color: var(--dark);
+  color: var(--branco);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.filter_btn:hover {
+  opacity: 0.8;
+}
