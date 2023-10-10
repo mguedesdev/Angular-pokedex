@@ -8,6 +8,9 @@ import { MenuComponent } from './components/menu/menu.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { SmallCardPokemonComponent } from './components/small-card-pokemon/small-card-pokemon.component';
 import { PokedexViewerComponent } from './components/pokedex-viewer/pokedex-viewer.component';
+import { TeamComponent } from './pages/team/team.component';
+import { PokemonComponent } from './pages/pokemon/pokemon.component';
+import { WhoPokemonComponent } from './pages/who-pokemon/who-pokemon.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { PokedexViewerComponent } from './components/pokedex-viewer/pokedex-view
     MenuComponent,
     SearchBarComponent,
     SmallCardPokemonComponent,
-    PokedexViewerComponent
+    PokedexViewerComponent,
+    TeamComponent,
+    PokemonComponent,
+    WhoPokemonComponent
   ],
   imports: [
     BrowserModule,
