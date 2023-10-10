@@ -12,16 +12,33 @@
   --cinza-claro: #f0f3f5;
   --cinza: #d4dadd;
   --cinza-escuro: #969c9f;
-  --vermelho: #ff6961;
-  --verde: #77dd77;
-  --azul: #74a7e4;
-  --amarelo: #ffff51;
 
-  /* --cinza-claro: #f0ebe8;
-  --cinza: #d4ccc7;
-  --cinza-escuro: #79726e; */
+  --vermelho-g: linear-gradient(to top, #fb1d51 0%, #fa5939 90%);
+
+  --fire: #ff4b42;
+  --grass: #77dd77;
+  --water: #74a7e4;
+  --electric: #ffff51;
+  --bug: #a8b820;
+  --dark: #3c3c3c;
+  --dragon: #6f35fc;
+  --fairy: #e397d1;
+  --fighting: #b8282e;
+  --flying: #a890f0;
+  --ghost: #735797;
+  --ground: #e0c068;
+  --ice: #96d9d6;
+  --normal: #a8a878;
+  --poison: #a040a1;
+  --psychic: #f85888;
+  --rock: #b8a038;
+  --steel: #b8b8d0;
+
 }
 
 body {
-  background-color: var(--cinza-claro);
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("assets/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }

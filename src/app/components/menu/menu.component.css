@@ -1,12 +1,30 @@
 .menu_container {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: 100%;
   width: 100%;
-  background-color: var(--cinza-escuro);
-  border-bottom: 3px solid var(--cinza);
+  background-color: var(--dark);
+  object-fit: cover;
+}
+
+.menu_logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 20px;
+  font-weight: bold;
+  color: var(--branco);
+  font-size: 24px;
+  cursor: pointer;
+
+}
+
+.menu_logo > img{
+  height: 40px;
+  margin-right: 5px;
 }
 
 .menu {
@@ -25,9 +43,8 @@ a {
 .menu_item {
   margin: 0 20px;
   color: white;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
-  text-transform: uppercase;
   cursor: pointer;
 }
 

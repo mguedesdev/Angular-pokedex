@@ -11,6 +11,7 @@ import { PokedexViewerComponent } from './components/pokedex-viewer/pokedex-view
 import { TeamComponent } from './pages/team/team.component';
 import { PokemonComponent } from './pages/pokemon/pokemon.component';
 import { WhoPokemonComponent } from './pages/who-pokemon/who-pokemon.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { WhoPokemonComponent } from './pages/who-pokemon/who-pokemon.component';
     PokedexViewerComponent,
     TeamComponent,
     PokemonComponent,
-    WhoPokemonComponent
+    WhoPokemonComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
