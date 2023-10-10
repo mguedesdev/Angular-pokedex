@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+
+}
+
+:root {
+  --grafite: #3c3c3c;
+  --branco: #ffffff;
+  --cinza-claro: #f0f3f5;
+  --cinza: #d4dadd;
+  --cinza-escuro: #969c9f;
+  --vermelho: #ff6961;
+  --verde: #77dd77;
+  --azul: #74a7e4;
+  --amarelo: #ffff51;
+
+  /* --cinza-claro: #f0ebe8;
+  --cinza: #d4ccc7;
+  --cinza-escuro: #79726e; */
+}
+
+body {
+  background-color: var(--cinza-claro);
+}
