@@ -16,6 +16,7 @@
 
   <div class="home_pokemon__list__pagination">
     <button class="home_pokemon__list__pagination__button" (click)="previousPage()">Anterior</button>
+    <input type="text" [(ngModel)]="currentPage" (keyup.enter)="goToPage()">
     <button class="home_pokemon__list__pagination__button" (click)="nextPage()">Próximo</button>
   </div>
 </div>

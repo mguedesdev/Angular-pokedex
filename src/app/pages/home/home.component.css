@@ -28,3 +28,43 @@
 .home_filter {
   width: calc(100% + 40px);
 }
+
+.home_pokemon__list__pagination {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0px;
+}
+
+.home_pokemon__list__pagination > button {
+  padding: 10px 20px;
+  border: none;
+  font-size: 18px;
+  background-color: var(--dark);
+  color: var(--branco);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+  border-radius: 5px;
+  font-weight: bold;
+  margin: 0px 5px;
+}
+
+.home_pokemon__list__pagination > button:hover {
+  opacity: 0.8;
+}
+
+.home_pokemon__list__pagination > input {
+  width: 50px;
+  height: 100%;
+  padding: 10px 10px;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.home_pokemon__list__pagination > input:focus {
+  outline: none;
+}

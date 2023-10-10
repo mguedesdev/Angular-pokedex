@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { forkJoin } from 'rxjs';
+import { PokemonDetail } from 'src/app/interfaces/pokemon-detail.interface';
 import { PokemonService } from 'src/app/services/pokemon.service';
 
 @Component({
@@ -26,11 +27,13 @@ export class HomeComponent {
         return this.pokemonService.getPokemonDetails(id);
       });
 
-      forkJoin(pokemonDetailsObservables).subscribe(pokemonDetails => {
-        this.pokemons = pokemonDetails;
+      forkJoin(pokemonDetailsObservables).subscribe((pokemonDetails: PokemonDetail[]) => {
+        this.pokemons = pokemonDetails.filter(pokemon => pokemon.id <= 1010);
       });
+
     });
-  }
+}
+
 
   getPokemonTypes(pokemon: any): string[] {
     return pokemon.types.map((type: any) => type.type.name);
@@ -43,15 +46,36 @@ export class HomeComponent {
   }
 
   nextPage(): void {
-    this.currentPage++;
-    this.loadPokemons();
+    if (this.currentPage * this.pokemonsPerPage < 1010) {
+        this.currentPage++;
+        this.loadPokemons();
+    } else {
+        this.currentPage = 1;
+        this.loadPokemons();
+
+    }
   }
+
 
   previousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
       this.loadPokemons();
+    }else {
+      this.currentPage = 51;
+      this.loadPokemons();
     }
   }
+
+  goToPage(): void {
+    if (this.currentPage > 0) {
+      this.loadPokemons();
+    } else {
+      this.currentPage = 1;
+      this.loadPokemons();
+
+    }
+  }
+
 
 }
