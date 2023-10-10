@@ -56,7 +56,6 @@ export class HomeComponent {
     }
   }
 
-
   previousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
@@ -77,5 +76,8 @@ export class HomeComponent {
     }
   }
 
+  capitalizeFirstLetter(string: string): string {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
 }

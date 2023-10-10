@@ -38,4 +38,7 @@ export class SmallCardPokemonComponent {
     return typeColors[type] || 'var(--cinza-escuro)';
   }
 
+  capitalizeFirstLetter(string: string): string {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 }

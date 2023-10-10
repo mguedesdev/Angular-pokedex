@@ -8,7 +8,7 @@
     <app-small-card-pokemon
       *ngFor="let pokemon of pokemons"
       [imageUrl]="pokemon.sprites.other['official-artwork'].front_default"
-      [name]="pokemon.name"
+      [name]="capitalizeFirstLetter(pokemon.name)"
       [id]="pokemon.id"
       [types]="getPokemonTypes(pokemon)">
     </app-small-card-pokemon>

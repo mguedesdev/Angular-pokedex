@@ -4,9 +4,16 @@
     <img [src]="imageUrl" alt="{{name}}">
   </div>
   <div class="card_name">
-    <p>{{name}} - {{id}}</p>
+    <p>{{name}}</p>
   </div>
-  <div class="card_type">
-    {{types.join(' - ')}}
+  <div class="card_id">
+    <p>#{{id}}</p>
   </div>
+  <div></div>
+  <div class="type">
+    <div class="card_type" *ngFor="let item of types" [ngStyle]="{'background-color': getBackgroundColorForType(item)}">
+      <span>{{capitalizeFirstLetter(item)}}</span>
+    </div>
+  </div>
+
 </div>
