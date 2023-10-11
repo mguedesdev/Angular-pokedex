@@ -26,7 +26,7 @@ import { FormsModule } from '@angular/forms';
     PokemonComponent,
     WhoPokemonComponent,
     FooterComponent,
-    FilterComponent
+    FilterComponent,
   ],
   imports: [
     BrowserModule,

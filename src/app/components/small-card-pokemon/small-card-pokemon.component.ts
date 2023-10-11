@@ -6,10 +6,10 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./small-card-pokemon.component.css']
 })
 export class SmallCardPokemonComponent {
-  @Input() imageUrl: string = '';
-  @Input() name: string = '';
-  @Input() id: number = 0;
-  @Input() types: string[] = [];
+  @Input() imageUrl: string | null = '';
+  @Input() name: string | null = '';
+  @Input() id: number | null = 0;
+  @Input() types: string[]  = [];
 
   getBackgroundColorForType(type: string): string {
     const typeColors: { [key: string]: string } = {

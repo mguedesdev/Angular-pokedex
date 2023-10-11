@@ -6,15 +6,20 @@
   </div>
 
   <div class="home_pokemon__list">
-    <app-small-card-pokemon
-      *ngFor="let pokemon of getDisplayedPokemons()"
-      [imageUrl]="pokemon.sprites.other['official-artwork'].front_default"
-      [name]="pokemon.name"
-      [id]="pokemon.id"
-      [types]="getPokemonTypes(pokemon)">
-    </app-small-card-pokemon>
+    <ng-container *ngIf="isLoading">
+      <app-small-card-pokemon *ngFor="let _ of placeholders"></app-small-card-pokemon>
+    </ng-container>
 
-  </div>
+    <ng-container *ngIf="!isLoading">
+      <app-small-card-pokemon
+        *ngFor="let pokemon of getDisplayedPokemons()"
+        [imageUrl]="pokemon.sprites.other['official-artwork'].front_default"
+        [name]="pokemon.name"
+        [id]="pokemon.id"
+        [types]="getPokemonTypes(pokemon)">
+      </app-small-card-pokemon>
+    </ng-container>
+</div>
 
   <div class="home_pokemon__list__pagination">
     <button class="home_pokemon__list__pagination__button" (click)="previousPage()">Anterior</button>

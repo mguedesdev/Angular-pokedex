@@ -13,23 +13,29 @@ export class HomeComponent {
   currentPage: number = 1;
   pokemonsPerPage: number = 20;
   filteredPokemons: any[] = [];
+  isLoading: boolean = true;
+  placeholders: number[] = Array(20).fill(0);
+
 
   constructor(private pokemonService: PokemonService) { }
 
   ngOnInit(): void {
     this.loadAllPokemons();
+
   }
 
   loadAllPokemons(): void {
     this.pokemonService.getAllPokemons().subscribe(response => {
       const pokemonDetailsObservables = response.results.map(pokemon => {
         const id = this.extractIdFromUrl(pokemon.url);
+
         return this.pokemonService.getPokemonDetails(id);
       });
 
       forkJoin(pokemonDetailsObservables).subscribe((pokemonDetails: PokemonDetail[]) => {
         this.pokemons = pokemonDetails.filter(pokemon => pokemon.id <= 1010);
         this.filteredPokemons = [...this.pokemons];
+        this.isLoading = false;
       });
     });
   }
@@ -58,7 +64,6 @@ export class HomeComponent {
         this.currentPage = 1;
     }
   }
-
 
   previousPage(): void {
     if (this.currentPage > 1) {

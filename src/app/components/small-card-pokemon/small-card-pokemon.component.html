@@ -1,4 +1,4 @@
-<div class="card_container">
+<div *ngIf="imageUrl" class="card_container">
   <div class="card_image">
     <div class="card_background" [ngStyle]="{'background-color': getBackgroundColorForType(types[0])}"></div>
     <img [src]="imageUrl" alt="{{name}}">
@@ -13,6 +13,25 @@
   <div class="type">
     <div class="card_type" *ngFor="let item of types" [ngStyle]="{'background-color': getBackgroundColorForType(item)}">
       <span>{{capitalizeFirstLetter(item)}}</span>
+    </div>
+  </div>
+
+</div>
+
+<div *ngIf="!imageUrl" class="card_placeholder">
+  <div class="card_image">
+    <div class="card_background" [ngStyle]="{'background-color': getBackgroundColorForType(types[0])}"></div>
+  </div>
+  <div class="card_name">
+    <p>Pokemon</p>
+  </div>
+  <div class="card_id">
+    <p>#0</p>
+  </div>
+  <div></div>
+  <div class="type">
+    <div class="card_type">
+      <span>Tipo</span>
     </div>
   </div>
 
