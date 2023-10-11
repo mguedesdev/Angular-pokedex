@@ -15,11 +15,11 @@ export class PokemonService {
   constructor(private http: HttpClient) { }
 
   getPokemons(offset = 0): Observable<PokemonListResponse> {
-    return this.http.get<PokemonListResponse>(`${this.baseUrl}/pokemon?offset=${offset}`);
+    return this.http.get<PokemonListResponse>(`${this.baseUrl}/pokemon?offset=${offset}&limit=20`);
   }
 
-  getPokemonDetails(id: number): Observable<PokemonDetail> {
-    return this.http.get<PokemonDetail>(`${this.baseUrl}/pokemon/${id}`);
+  getPokemonDetails(name: string): Observable<PokemonDetail> {
+    return this.http.get<PokemonDetail>(`${this.baseUrl}/pokemon/${name}`);
   }
 
   getPokemonTypes(): Observable<PokemonTypesResponse> {

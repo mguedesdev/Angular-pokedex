@@ -12,12 +12,13 @@
 
     <ng-container *ngIf="!isLoading">
       <app-small-card-pokemon
-        *ngFor="let pokemon of getDisplayedPokemons()"
+        *ngFor="let pokemon of displayedPokemons"
         [imageUrl]="pokemon.sprites.other['official-artwork'].front_default"
-        [name]="pokemon.name"
+        [name]="capitalizeFirstLetter(pokemon.name)"
         [id]="pokemon.id"
         [types]="getPokemonTypes(pokemon)">
       </app-small-card-pokemon>
+
     </ng-container>
 </div>
 
