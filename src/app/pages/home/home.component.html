@@ -1,17 +1,19 @@
 <div class="home_container">
 
   <div class="home_filter">
-    <app-filter></app-filter>
+    <app-filter (searchTermChanged)="filterPokemons($event)"></app-filter>
+
   </div>
 
   <div class="home_pokemon__list">
     <app-small-card-pokemon
-      *ngFor="let pokemon of pokemons"
+      *ngFor="let pokemon of filteredPokemons"
       [imageUrl]="pokemon.sprites.other['official-artwork'].front_default"
-      [name]="capitalizeFirstLetter(pokemon.name)"
+      [name]="pokemon.name"
       [id]="pokemon.id"
       [types]="getPokemonTypes(pokemon)">
     </app-small-card-pokemon>
+
   </div>
 
   <div class="home_pokemon__list__pagination">

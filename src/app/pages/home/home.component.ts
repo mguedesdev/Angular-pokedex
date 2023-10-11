@@ -12,6 +12,7 @@ export class HomeComponent {
   pokemons: any[] = [];
   currentPage: number = 1;
   pokemonsPerPage: number = 20;
+  filteredPokemons: any[] = [];
 
   constructor(private pokemonService: PokemonService) { }
 
@@ -29,7 +30,9 @@ export class HomeComponent {
 
       forkJoin(pokemonDetailsObservables).subscribe((pokemonDetails: PokemonDetail[]) => {
         this.pokemons = pokemonDetails.filter(pokemon => pokemon.id <= 1010);
+        this.filteredPokemons = [...this.pokemons];
       });
+
 
     });
 }
@@ -79,5 +82,14 @@ export class HomeComponent {
   capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+
+  filterPokemons(searchTerm: string): void {
+    if (searchTerm) {
+      this.filteredPokemons = this.pokemons.filter(pokemon => pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()));
+    } else {
+      this.filteredPokemons = [...this.pokemons];
+    }
+  }
+
 
 }

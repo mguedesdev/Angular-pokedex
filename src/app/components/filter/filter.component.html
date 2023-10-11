@@ -3,7 +3,8 @@
   <div class="search">
     <div class="filter_item">
       <label for="filter_name">Nome</label>
-      <input type="text" id="filter_name" placeholder="Digite o nome ou id do pokemon">
+      <input type="text" id="filter_name" placeholder="Digite o nome ou id do pokemon" [(ngModel)]="searchTerm" (input)="onSearchTermChange()">
+
     </div>
   </div>
 
