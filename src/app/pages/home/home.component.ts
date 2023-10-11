@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { PokemonDetail } from 'src/app/interfaces/pokemon-detail.interface';
+import { FilterData } from 'src/app/interfaces/pokemon-filter.interface';
 import { PokemonService } from 'src/app/services/pokemon.service';
 
 @Component({
@@ -71,7 +72,13 @@ export class HomeComponent {
   goToPage(): void {
     if (this.currentPage <= 0) {
       this.currentPage = 1;
+    } else {
+      const totalPages = this.getTotalPages();
+      if (this.currentPage > totalPages) {
+        this.currentPage = totalPages;
+      }
     }
+    this.loadDisplayedPokemons();
   }
 
   loadDisplayedPokemons(): void {
@@ -80,18 +87,32 @@ export class HomeComponent {
     this.displayedPokemons = this.filteredPokemons.slice(start, end);
   }
 
-  filterPokemons(searchTerm: string): void {
-    if (!searchTerm) {
-        this.filteredPokemons = [...this.pokemons];
-    } else if (!isNaN(Number(searchTerm))) {
-        const id = Number(searchTerm);
-        this.filteredPokemons = this.pokemons.filter(pokemon => pokemon.id === id);
-    } else {
-        this.filteredPokemons = this.pokemons.filter(pokemon => pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()));
+  filterPokemons(filter: FilterData): void {
+    const { searchTerm, selectedType1, selectedType2 } = filter;
+
+    this.filteredPokemons = this.pokemons;
+
+    if (searchTerm) {
+        if (!isNaN(Number(searchTerm))) {
+            const id = Number(searchTerm);
+            this.filteredPokemons = this.filteredPokemons.filter(pokemon => pokemon.id === id);
+        } else {
+            this.filteredPokemons = this.filteredPokemons.filter(pokemon => pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()));
+        }
     }
+
+    if (selectedType1 !== 'all' || selectedType2 !== 'all') {
+        this.filteredPokemons = this.filteredPokemons.filter(pokemon => {
+            const typeNames = this.getPokemonTypes(pokemon);
+            return (selectedType1 === 'all' || typeNames.includes(selectedType1)) &&
+                   (selectedType2 === 'all' || typeNames.includes(selectedType2));
+        });
+    }
+
     this.currentPage = 1;
     this.loadDisplayedPokemons();
-  }
+}
+
 
   capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);

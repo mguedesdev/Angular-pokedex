@@ -10,8 +10,15 @@
   <div class="filter">
 
     <div class="filter_item">
-      <label for="filter_type">Tipo</label>
-      <select name="filter_type" id="filter_type">
+      <label for="filter_type1">Tipo 1</label>
+      <select name="filter_type1" id="filter_type1" [(ngModel)]="selectedType1" (change)="onSearchTermChange()">
+        <option value="all">Todos</option>
+        <option *ngFor="let tipo of tipos" [value]="tipo.name">{{ capitalizeFirstLetter(tipo.name)  }}</option>
+      </select>
+    </div>
+    <div class="filter_item">
+      <label for="filter_type2">Tipo 2</label>
+      <select name="filter_type2" id="filter_type2" [(ngModel)]="selectedType2" (change)="onSearchTermChange()">
         <option value="all">Todos</option>
         <option *ngFor="let tipo of tipos" [value]="tipo.name">{{ capitalizeFirstLetter(tipo.name)  }}</option>
       </select>
@@ -34,7 +41,4 @@
     </div>
 
   </div>
-
-
-  <button class="filter_btn">Buscar</button>
 </div>
