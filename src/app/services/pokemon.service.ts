@@ -22,10 +22,14 @@ export class PokemonService {
     return this.http.get<PokemonDetail>(`${this.baseUrl}/pokemon/${id}`);
   }
 
-
   getPokemonTypes(): Observable<PokemonTypesResponse> {
     return this.http.get<PokemonTypesResponse>(`${this.baseUrl}/type`);
   }
+
+  getAllPokemons(limit: number = 1010): Observable<PokemonListResponse> {
+    return this.http.get<PokemonListResponse>(`${this.baseUrl}/pokemon?limit=${limit}`);
+  }
+
 
 
 }

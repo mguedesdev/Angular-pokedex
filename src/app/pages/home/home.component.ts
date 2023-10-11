@@ -17,12 +17,11 @@ export class HomeComponent {
   constructor(private pokemonService: PokemonService) { }
 
   ngOnInit(): void {
-    this.loadPokemons();
+    this.loadAllPokemons();
   }
 
-  loadPokemons(): void {
-    const offset = (this.currentPage - 1) * this.pokemonsPerPage;
-    this.pokemonService.getPokemons(offset).subscribe(response => {
+  loadAllPokemons(): void {
+    this.pokemonService.getAllPokemons().subscribe(response => {
       const pokemonDetailsObservables = response.results.map(pokemon => {
         const id = this.extractIdFromUrl(pokemon.url);
         return this.pokemonService.getPokemonDetails(id);
@@ -32,10 +31,14 @@ export class HomeComponent {
         this.pokemons = pokemonDetails.filter(pokemon => pokemon.id <= 1010);
         this.filteredPokemons = [...this.pokemons];
       });
-
-
     });
-}
+  }
+
+  getDisplayedPokemons(): any[] {
+    const start = (this.currentPage - 1) * this.pokemonsPerPage;
+    const end = start + this.pokemonsPerPage;
+    return this.filteredPokemons.slice(start, end);
+  }
 
 
   getPokemonTypes(pokemon: any): string[] {
@@ -51,33 +54,27 @@ export class HomeComponent {
   nextPage(): void {
     if (this.currentPage * this.pokemonsPerPage < 1010) {
         this.currentPage++;
-        this.loadPokemons();
     } else {
         this.currentPage = 1;
-        this.loadPokemons();
-
     }
   }
+
 
   previousPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
-      this.loadPokemons();
-    }else {
+    } else {
       this.currentPage = 51;
-      this.loadPokemons();
     }
   }
+
 
   goToPage(): void {
-    if (this.currentPage > 0) {
-      this.loadPokemons();
-    } else {
+    if (this.currentPage <= 0) {
       this.currentPage = 1;
-      this.loadPokemons();
-
     }
   }
+
 
   capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
