@@ -50,6 +50,6 @@ a {
 }
 
 a:hover {
-  color: var(--grafite);
+  opacity: 0.6;
 }
 

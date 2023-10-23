@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { PokemonTypesResponse } from '../interfaces/pokemon-types-response.interface';
 import { PokemonListResponse } from '../interfaces/pokemon-list-response.interface';
 import { PokemonDetail } from '../interfaces/pokemon-detail.interface';
+import { PokemonGenerationResponse } from '../interfaces/pokemon-generation-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,10 @@ export class PokemonService {
 
   getAllPokemons(limit: number = 1010): Observable<PokemonListResponse> {
     return this.http.get<PokemonListResponse>(`${this.baseUrl}/pokemon?limit=${limit}`);
+  }
+
+  getGenerationPokemons(generation: number): Observable<PokemonGenerationResponse> {
+    return this.http.get<PokemonGenerationResponse>(`${this.baseUrl}/generation/${generation}`);
   }
 
 }

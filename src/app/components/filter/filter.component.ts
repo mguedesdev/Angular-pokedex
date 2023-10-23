@@ -15,6 +15,7 @@ export class FilterComponent implements OnInit {
   searchTerm: string = '';
   selectedType1: string = 'all';
   selectedType2: string = 'all';
+  generation: string = 'all';
 
 
   constructor(private pokemonService: PokemonService) {}
@@ -23,15 +24,12 @@ export class FilterComponent implements OnInit {
 
 
   onSearchTermChange(): void {
-    this.searchTermChanged.emit({ searchTerm: this.searchTerm, selectedType1: this.selectedType1, selectedType2: this.selectedType2 });
+    this.searchTermChanged.emit({ searchTerm: this.searchTerm, selectedType1: this.selectedType1, selectedType2: this.selectedType2, generation: this.generation });
   }
-
-
 
   capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-
 
   ngOnInit(): void {
     this.pokemonService.getPokemonTypes().subscribe((response: PokemonTypesResponse) => {

@@ -21,20 +21,76 @@ export class HomeComponent {
   constructor(private pokemonService: PokemonService) { }
 
   ngOnInit(): void {
-    this.loadAllPokemons();
+    this.fetchAllPokemons();
   }
 
-  loadAllPokemons(): void {
+  fetchAllPokemons(): void {
     this.pokemonService.getAllPokemons().subscribe(response => {
-      const pokemonDetailsObservables = response.results.map(pokemon => this.pokemonService.getPokemonDetails(pokemon.name));
-
-      forkJoin(pokemonDetailsObservables).subscribe((pokemonDetails: PokemonDetail[]) => {
-        this.pokemons = pokemonDetails.filter(pokemon => pokemon.id <= 1010);
-        this.filteredPokemons = [...this.pokemons];
-        this.loadDisplayedPokemons();
-        this.isLoading = false;
-      });
+      this.processPokemonListResponse(response.results);
     });
+  }
+
+  processPokemonListResponse(pokemonList: any[]): void {
+    const pokemonDetailsObservables = pokemonList.map(pokemon => this.pokemonService.getPokemonDetails(pokemon.name));
+    forkJoin(pokemonDetailsObservables).subscribe((pokemonDetails: PokemonDetail[]) => {
+      this.pokemons = pokemonDetails.filter(pokemon => pokemon.id <= 1010);
+      this.filteredPokemons = [...this.pokemons];
+      this.updateDisplayedPokemons();
+      this.isLoading = false;
+    });
+  }
+
+  updateDisplayedPokemons(): void {
+    this.currentPage = 1;
+    const start = (this.currentPage - 1) * this.pokemonsPerPage;
+    const end = start + this.pokemonsPerPage;
+    this.displayedPokemons = this.filteredPokemons.slice(start, end);
+  }
+
+  filterPokemons(filter: FilterData): void {
+    const { searchTerm, selectedType1, selectedType2, generation } = filter;
+    this.filteredPokemons = this.pokemons;
+
+    if(generation !== 'all') {
+      this.filterByGeneration(Number(generation), searchTerm, selectedType1, selectedType2);
+    } else {
+      this.filterByNameAndType(searchTerm, selectedType1, selectedType2);
+    }
+  }
+
+  filterByGeneration(generation: number, searchTerm: string, selectedType1: string, selectedType2: string): void {
+    this.pokemonService.getGenerationPokemons(generation).subscribe(response => {
+      const generationPokemonNames = response.pokemon_species.map(species => species.name);
+      this.filteredPokemons = this.pokemons.filter(pokemon => generationPokemonNames.includes(pokemon.name));
+      this.filterByNameAndType(searchTerm, selectedType1, selectedType2);
+    });
+  }
+
+  filterByNameAndType(searchTerm: string, selectedType1: string, selectedType2: string): void {
+    this.filterByName(searchTerm);
+    this.filterByType(selectedType1, selectedType2);
+    this.updateDisplayedPokemons();
+  }
+
+  filterByName(searchTerm: string): void {
+    if (searchTerm) {
+      if (!isNaN(Number(searchTerm))) {
+        const id = Number(searchTerm);
+        this.filteredPokemons = this.filteredPokemons.filter(pokemon => pokemon.id === id);
+      } else {
+        this.filteredPokemons = this.filteredPokemons.filter(pokemon => pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()));
+      }
+    }
+  }
+
+  filterByType(selectedType1: string, selectedType2: string): void {
+    if (selectedType1 !== 'all' || selectedType2 !== 'all') {
+      this.filteredPokemons = this.filteredPokemons.filter(pokemon => {
+        const typeNames = this.getPokemonTypes(pokemon);
+        return (selectedType1 === 'all' || typeNames.includes(selectedType1)) &&
+               (selectedType2 === 'all' || typeNames.includes(selectedType2));
+      });
+    }
   }
 
   getDisplayedPokemons(): any[] {
@@ -86,33 +142,6 @@ export class HomeComponent {
     const end = start + this.pokemonsPerPage;
     this.displayedPokemons = this.filteredPokemons.slice(start, end);
   }
-
-  filterPokemons(filter: FilterData): void {
-    const { searchTerm, selectedType1, selectedType2 } = filter;
-
-    this.filteredPokemons = this.pokemons;
-
-    if (searchTerm) {
-        if (!isNaN(Number(searchTerm))) {
-            const id = Number(searchTerm);
-            this.filteredPokemons = this.filteredPokemons.filter(pokemon => pokemon.id === id);
-        } else {
-            this.filteredPokemons = this.filteredPokemons.filter(pokemon => pokemon.name.toLowerCase().includes(searchTerm.toLowerCase()));
-        }
-    }
-
-    if (selectedType1 !== 'all' || selectedType2 !== 'all') {
-        this.filteredPokemons = this.filteredPokemons.filter(pokemon => {
-            const typeNames = this.getPokemonTypes(pokemon);
-            return (selectedType1 === 'all' || typeNames.includes(selectedType1)) &&
-                   (selectedType2 === 'all' || typeNames.includes(selectedType2));
-        });
-    }
-
-    this.currentPage = 1;
-    this.loadDisplayedPokemons();
-}
-
 
   capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
