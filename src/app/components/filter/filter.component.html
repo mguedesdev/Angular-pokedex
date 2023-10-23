@@ -35,9 +35,14 @@
         </div>
         <div class="options" *ngIf="dropdowns.type1">
             <div class="option" (click)="selectOption('type1', 'all')">All</div>
-            <div class="option" *ngFor="let tipo of tipos" (click)="selectOption('type1', tipo.name)">
-                {{ capitalizeFirstLetter(tipo.name) }}
-            </div>
+            <div class="option"
+              *ngFor="let tipo of tipos"
+              (click)="selectOption('type1', tipo.name)"
+              (mouseover)="setHover(tipo.name)"
+              (mouseout)="clearHover(tipo.name)"
+              [style.background-color]="hoveredTypes[tipo.name] ? getBackgroundColorForType(tipo.name) : ''">
+              {{ capitalizeFirstLetter(tipo.name) }}
+          </div>
         </div>
     </div>
 
@@ -54,7 +59,12 @@
         </div>
         <div class="options" *ngIf="dropdowns.type2">
             <div class="option" (click)="selectOption('type2', 'all')">All</div>
-            <div class="option" *ngFor="let tipo of tipos" (click)="selectOption('type2', tipo.name)">
+            <div class="option"
+            *ngFor="let tipo of tipos"
+            (click)="selectOption('type2', tipo.name)"
+            (mouseover)="setHover(tipo.name)"
+            (mouseout)="clearHover(tipo.name)"
+            [style.background-color]="hoveredTypes[tipo.name] ? getBackgroundColorForType(tipo.name) : ''">
                 {{ capitalizeFirstLetter(tipo.name) }}
             </div>
         </div>

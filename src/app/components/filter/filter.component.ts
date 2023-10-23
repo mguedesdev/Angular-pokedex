@@ -18,6 +18,8 @@ export class FilterComponent implements OnInit {
   selectedType1: string = '';
   selectedType2: string = '';
   generation: string = '';
+  hoveredTypes: { [key: string]: boolean } = {};
+
 
   constructor(private pokemonService: PokemonService) {}
 
@@ -35,6 +37,14 @@ export class FilterComponent implements OnInit {
     type2: false,
     generation: false
   };
+
+  setHover(type: string): void {
+    this.hoveredTypes[type] = true;
+  }
+
+  clearHover(type: string): void {
+      this.hoveredTypes[type] = false;
+  }
 
   toggleDropdown(dropdownName: DropdownNames): void {
     if (this.dropdowns[dropdownName]) {
@@ -90,5 +100,32 @@ export class FilterComponent implements OnInit {
       this.tipos = response.results;
       this.tipos.splice(-2);
     });
+  }
+
+  getBackgroundColorForType(type: string): string {
+    const typeColors: { [key: string]: string } = {
+      normal: 'var(--normal)',
+      fighting: 'var(--fighting)',
+      flying: 'var(--flying)',
+      poison: 'var(--poison)',
+      ground: 'var(--ground)',
+      rock: 'var(--rock)',
+      bug: 'var(--bug)',
+      ghost: 'var(--ghost)',
+      steel: 'var(--steel)',
+      fire: 'var(--fire)',
+      water: 'var(--water)',
+      grass: 'var(--grass)',
+      electric: 'var(--electric)',
+      psychic: 'var(--psychic)',
+      ice: 'var(--ice)',
+      dragon: 'var(--dragon)',
+      dark: 'var(--dark)',
+      fairy: 'var(--fairy)',
+      unknown: 'var(--unknown)',
+      shadow: 'var(--shadow)'
+    };
+
+    return typeColors[type] || 'var(--cinza-escuro)';
   }
 }
