@@ -1,32 +1,39 @@
+<img class="pokeball-logo" src="assets/icon/pokeball2.png" alt="">
+
 <div class="home_container">
 
-  <div class="home_filter">
-    <app-filter (searchTermChanged)="filterPokemons($event)"></app-filter>
+  <div class="home_content">
+    <div class="home_filter">
+      <app-filter (searchTermChanged)="filterPokemons($event)"></app-filter>
+    </div>
 
+    <div class="home_pokemon__list">
+      <ng-container *ngIf="isLoading">
+        <app-small-card-pokemon *ngFor="let _ of placeholders"></app-small-card-pokemon>
+      </ng-container>
 
+      <ng-container *ngIf="!isLoading">
+        <app-small-card-pokemon
+          class="grid-item"
+          *ngFor="let pokemon of displayedPokemons"
+          [imageUrl]="pokemon.sprites.other['official-artwork'].front_default"
+          [name]="capitalizeFirstLetter(pokemon.name)"
+          [id]="pokemon.id"
+          [types]="getPokemonTypes(pokemon)">
+        </app-small-card-pokemon>
+
+      </ng-container>
+    </div>
+    <div class="home_pokemon__list__pagination">
+      <button class="home_pokemon__list__pagination__button" (click)="previousPage()">Anterior</button>
+      <input type="text" [(ngModel)]="currentPage" (keyup.enter)="goToPage()">
+      <button class="home_pokemon__list__pagination__button" (click)="nextPage()">Próximo</button>
+    </div>
   </div>
 
-  <div class="home_pokemon__list">
-    <ng-container *ngIf="isLoading">
-      <app-small-card-pokemon *ngFor="let _ of placeholders"></app-small-card-pokemon>
-    </ng-container>
+  <app-pokedex-viewer></app-pokedex-viewer>
 
-    <ng-container *ngIf="!isLoading">
-      <app-small-card-pokemon
-        class="grid-item"
-        *ngFor="let pokemon of displayedPokemons"
-        [imageUrl]="pokemon.sprites.other['official-artwork'].front_default"
-        [name]="capitalizeFirstLetter(pokemon.name)"
-        [id]="pokemon.id"
-        [types]="getPokemonTypes(pokemon)">
-      </app-small-card-pokemon>
 
-    </ng-container>
 </div>
 
-  <div class="home_pokemon__list__pagination">
-    <button class="home_pokemon__list__pagination__button" (click)="previousPage()">Anterior</button>
-    <input type="text" [(ngModel)]="currentPage" (keyup.enter)="goToPage()">
-    <button class="home_pokemon__list__pagination__button" (click)="nextPage()">Próximo</button>
-  </div>
-</div>
+

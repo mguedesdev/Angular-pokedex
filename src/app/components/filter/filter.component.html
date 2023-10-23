@@ -1,48 +1,89 @@
+
 <div class="filter_container">
-  <p class="filter-tittle">ENCONTRE SEU POKEMON</p>
-  <div class="filters">
-    <div class="search">
-      <div class="filter_item">
-        <input type="text" id="filter_name" placeholder="Nome ou ID do pokemon" [(ngModel)]="searchTerm" (input)="onSearchTermChange()">
-      </div>
+    <div class="filter_item_input">
+      <input type="text" id="filter_name" placeholder="Search your pokemon" [(ngModel)]="searchTerm" (input)="onSearchTermChange()">
     </div>
 
-    <div class="filter">
+  <div class="filter">
+    <div class="filter_item_select">
 
-      <div class="filter_item">
-        <select name="filter_type1" id="filter_type1" [(ngModel)]="selectedType1" (change)="onSearchTermChange()">
-          <option value="" disabled selected>Tipo</option>
-          <option value="all">Todos</option>
-          <option *ngFor="let tipo of tipos" [value]="tipo.name">{{ capitalizeFirstLetter(tipo.name) }}</option>
-        </select>
-      </div>
-      <div class="filter_item">
-        <select name="filter_type2" id="filter_type2" [(ngModel)]="selectedType2" (change)="onSearchTermChange()">
-          <option value="" disabled selected>Tipo</option>
-          <option value="all">Todos</option>
-          <option *ngFor="let tipo of tipos" [value]="tipo.name">{{ capitalizeFirstLetter(tipo.name) }}</option>
-        </select>
-      </div>
-
-
-      <div class="filter_item">
-        <select name="filter_generation" id="filter_generation" [(ngModel)]="generation" (change)="onSearchTermChange()">
-          <option value="" disabled selected>Geração</option>
-          <option value="all">Todos</option>
-          <option value="1">1ª Geração</option>
-          <option value="2">2ª Geração</option>
-          <option value="3">3ª Geração</option>
-          <option value="4">4ª Geração</option>
-          <option value="5">5ª Geração</option>
-          <option value="6">6ª Geração</option>
-          <option value="7">7ª Geração</option>
-          <option value="8">8ª Geração</option>
-          <option value="9">9ª Geração</option>
-        </select>
-      </div>
+      <div class="custom-dropdown">
+            <div class="selected-option" (click)="toggleDropdown('order')">
+                <div>
+                    <img class="order-icon" src="assets/icon/fight.png">
+                    {{selectedLabel || 'Order'}}
+                </div>
+                <img class="arrow-icon" [src]="dropdowns.order ? 'assets/icon/arrow-up.png' : 'assets/icon/arrow-down.png'" alt="">
+            </div>
+            <div class="options" *ngIf="dropdowns.order">
+                <div class="option" (click)="selectOption('order', 'asc')">Ascending</div>
+                <div class="option" (click)="selectOption('order', 'desc')">Descending</div>
+            </div>
+        </div>
 
     </div>
+
+    <div class="filter_item_select">
+
+      <div class="custom-dropdown">
+        <div class="selected-option" (click)="toggleDropdown('type1')">
+            <div>
+                <img class="type-icon" src="assets/icon/type1.png" alt="">
+                {{selectedType1Label || 'Type 1'}}
+            </div>
+            <img class="arrow-icon" [src]="dropdowns.type1 ? 'assets/icon/arrow-up.png' : 'assets/icon/arrow-down.png'" alt="">
+        </div>
+        <div class="options" *ngIf="dropdowns.type1">
+            <div class="option" (click)="selectOption('type1', 'all')">All</div>
+            <div class="option" *ngFor="let tipo of tipos" (click)="selectOption('type1', tipo.name)">
+                {{ capitalizeFirstLetter(tipo.name) }}
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <div class="filter_item_select">
+
+      <div class="custom-dropdown">
+        <div class="selected-option" (click)="toggleDropdown('type2')">
+            <div>
+                <img class="type-icon" src="assets/icon/type2.png" alt="">
+                {{selectedType2Label || 'Type 2'}}
+            </div>
+            <img class="arrow-icon" [src]="dropdowns.type2 ? 'assets/icon/arrow-up.png' : 'assets/icon/arrow-down.png'" alt="">
+        </div>
+        <div class="options" *ngIf="dropdowns.type2">
+            <div class="option" (click)="selectOption('type2', 'all')">All</div>
+            <div class="option" *ngFor="let tipo of tipos" (click)="selectOption('type2', tipo.name)">
+                {{ capitalizeFirstLetter(tipo.name) }}
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+
+    <div class="filter_item_select">
+
+       <div class="custom-dropdown">
+            <div class="selected-option" (click)="toggleDropdown('generation')">
+                <div>
+                    <img class="generation-icon" src="assets/icon/generation.png" alt="">
+                    {{selectedGenerationLabel || 'Generation'}}
+                </div>
+                <img class="arrow-icon" [src]="dropdowns.generation ? 'assets/icon/arrow-up.png' : 'assets/icon/arrow-down.png'" alt="">
+            </div>
+            <div class="options" *ngIf="dropdowns.generation">
+                <div class="option" (click)="selectOption('generation', 'all')">All</div>
+                <div class="option" *ngFor="let gen of [1,2,3,4,5,6,7,8,9]" (click)="selectOption('generation', gen)">
+                    {{ gen }}th Generation
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
   </div>
-
-
 </div>
+

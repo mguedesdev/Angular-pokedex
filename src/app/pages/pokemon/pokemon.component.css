@@ -1,0 +1,12 @@
+.pokemon-container {
+  min-height: 100vh;
+  height: 100%;
+  max-width: 1280px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  background-color: var(--cinza-claro);
+  padding: 0 35px;
+}

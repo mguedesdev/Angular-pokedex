@@ -12,6 +12,7 @@
   cursor: pointer;
   max-width: 280px;
   max-height: 281px;
+  background-color: var(--branco);
 }
 
 .card_container:hover {

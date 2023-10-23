@@ -4,6 +4,8 @@ import { PokemonTypesResponse } from 'src/app/interfaces/pokemon-types-response.
 import { Output, EventEmitter } from '@angular/core';
 import { FilterData } from 'src/app/interfaces/pokemon-filter.interface';
 
+type DropdownNames = 'order' | 'type1' | 'type2' | 'generation';
+
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
@@ -17,14 +19,66 @@ export class FilterComponent implements OnInit {
   selectedType2: string = '';
   generation: string = '';
 
-
   constructor(private pokemonService: PokemonService) {}
 
   @Output() searchTermChanged = new EventEmitter<FilterData>();
+  order: string = '';
+  selectedLabel: string | null = null;
+  selectedImage: string | null = null;
+  selectedType1Label: string | null = null;
+  selectedType2Label: string | null = null;
+  selectedGenerationLabel: string | null = null;
+
+  dropdowns: Record<DropdownNames, boolean> = {
+    order: false,
+    type1: false,
+    type2: false,
+    generation: false
+  };
+
+  toggleDropdown(dropdownName: DropdownNames): void {
+    if (this.dropdowns[dropdownName]) {
+      this.dropdowns[dropdownName] = false;
+  } else {
+      Object.keys(this.dropdowns).forEach(key => {
+          this.dropdowns[key as DropdownNames] = false;
+      });
+      this.dropdowns[dropdownName] = true;
+  }
+  }
+
+  selectOption(dropdownName: DropdownNames, value: string | number): void {
+    switch (dropdownName) {
+      case 'order':
+        this.order = value.toString();
+        this.selectedLabel = value === 'asc' ? 'Ascending' : 'Descending';
+        break;
+      case 'type1':
+        this.selectedType1 = value.toString();
+        this.selectedType1Label = value === 'all' ? 'All' : this.capitalizeFirstLetter(this.selectedType1);
+        break;
+      case 'type2':
+        this.selectedType2 = value.toString();
+        this.selectedType2Label = value === 'all' ? 'All' : this.capitalizeFirstLetter(this.selectedType2);
+        break;
+      case 'generation':
+        this.generation = value.toString();
+        this.selectedGenerationLabel = value === 'all' ? 'All' : `${value}th Generation`;
+        break;
+    }
+    this.dropdowns[dropdownName] = false;
+    this.onSearchTermChange();
+  }
 
 
   onSearchTermChange(): void {
-    this.searchTermChanged.emit({ searchTerm: this.searchTerm, selectedType1: this.selectedType1, selectedType2: this.selectedType2, generation: this.generation });
+    this.searchTermChanged.emit({
+        searchTerm: this.searchTerm,
+        selectedType1: this.selectedType1,
+        selectedType2: this.selectedType2,
+        generation: this.generation,
+        order: this.order
+    });
   }
 
   capitalizeFirstLetter(string: string): string {
@@ -34,7 +88,7 @@ export class FilterComponent implements OnInit {
   ngOnInit(): void {
     this.pokemonService.getPokemonTypes().subscribe((response: PokemonTypesResponse) => {
       this.tipos = response.results;
-
+      this.tipos.splice(-2);
     });
   }
 }

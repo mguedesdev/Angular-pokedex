@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'team', component: TeamComponent },
-  { path: 'pokemon', component: PokemonComponent },
+  { path: 'pokemon/:id', component: PokemonComponent },
   { path: 'whoPokemon', component: WhoPokemonComponent }
 ];
 

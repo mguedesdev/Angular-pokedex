@@ -3,4 +3,5 @@ export interface FilterData {
   selectedType1: string;
   selectedType2: string;
   generation: string;
+  order: string;
 }
