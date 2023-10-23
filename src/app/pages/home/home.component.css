@@ -1,10 +1,10 @@
 .home_container {
+  min-height: 100vh;
   height: 100%;
   max-width: 1280px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   margin: auto;
   background-color: var(--cinza-claro);
@@ -18,12 +18,24 @@
 }
 
 .home_pokemon__list {
-  width: 100%;
+  min-height: 90vh;
+  height: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-rows: 280px;
   grid-gap: 35px;
-
+  justify-items: center;
+  width: 100%;
+  margin: 10px 0px;
 }
+
+
+.grid-item {
+  max-width: 280px;
+  max-height: 280px;
+  width: 100%;
+}
+
 
 .home_filter {
   width: calc(100% + 70px);
@@ -68,3 +80,4 @@
 .home_pokemon__list__pagination > input:focus {
   outline: none;
 }
+

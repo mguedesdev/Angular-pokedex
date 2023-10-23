@@ -1,32 +1,33 @@
+
 <div class="filter_container">
 
   <div class="search">
     <div class="filter_item">
-      <label for="filter_name">Nome</label>
-      <input type="text" id="filter_name" placeholder="Digite o nome ou ID do pokemon" [(ngModel)]="searchTerm" (input)="onSearchTermChange()">
+      <input type="text" id="filter_name" placeholder="Nome ou ID do pokemon" [(ngModel)]="searchTerm" (input)="onSearchTermChange()">
     </div>
   </div>
 
   <div class="filter">
 
     <div class="filter_item">
-      <label for="filter_type1">Tipo 1</label>
       <select name="filter_type1" id="filter_type1" [(ngModel)]="selectedType1" (change)="onSearchTermChange()">
+        <option value="" disabled selected>Tipo</option>
         <option value="all">Todos</option>
-        <option *ngFor="let tipo of tipos" [value]="tipo.name">{{ capitalizeFirstLetter(tipo.name)  }}</option>
+        <option *ngFor="let tipo of tipos" [value]="tipo.name">{{ capitalizeFirstLetter(tipo.name) }}</option>
       </select>
     </div>
     <div class="filter_item">
-      <label for="filter_type2">Tipo 2</label>
       <select name="filter_type2" id="filter_type2" [(ngModel)]="selectedType2" (change)="onSearchTermChange()">
+        <option value="" disabled selected>Tipo</option>
         <option value="all">Todos</option>
-        <option *ngFor="let tipo of tipos" [value]="tipo.name">{{ capitalizeFirstLetter(tipo.name)  }}</option>
+        <option *ngFor="let tipo of tipos" [value]="tipo.name">{{ capitalizeFirstLetter(tipo.name) }}</option>
       </select>
     </div>
 
+
     <div class="filter_item">
-      <label for="filter_generation">Geração</label>
       <select name="filter_generation" id="filter_generation" [(ngModel)]="generation" (change)="onSearchTermChange()">
+        <option value="" disabled selected>Geração</option>
         <option value="all">Todos</option>
         <option value="1">1ª Geração</option>
         <option value="2">2ª Geração</option>

@@ -51,14 +51,18 @@ export class HomeComponent {
     const { searchTerm, selectedType1, selectedType2, generation } = filter;
     this.filteredPokemons = this.pokemons;
 
-    if(generation !== 'all') {
+    if(generation && generation !== 'all') {
       this.filterByGeneration(Number(generation), searchTerm, selectedType1, selectedType2);
     } else {
       this.filterByNameAndType(searchTerm, selectedType1, selectedType2);
     }
+
   }
 
   filterByGeneration(generation: number, searchTerm: string, selectedType1: string, selectedType2: string): void {
+    if (generation <= 0) {
+      return;
+    }
     this.pokemonService.getGenerationPokemons(generation).subscribe(response => {
       const generationPokemonNames = response.pokemon_species.map(species => species.name);
       this.filteredPokemons = this.pokemons.filter(pokemon => generationPokemonNames.includes(pokemon.name));
@@ -68,9 +72,10 @@ export class HomeComponent {
 
   filterByNameAndType(searchTerm: string, selectedType1: string, selectedType2: string): void {
     this.filterByName(searchTerm);
-    this.filterByType(selectedType1, selectedType2);
+    this.filterByType(selectedType1 || 'all', selectedType2 || 'all');
     this.updateDisplayedPokemons();
-  }
+}
+
 
   filterByName(searchTerm: string): void {
     if (searchTerm) {
@@ -146,4 +151,6 @@ export class HomeComponent {
   capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+  
 }
+

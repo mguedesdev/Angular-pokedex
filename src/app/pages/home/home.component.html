@@ -13,6 +13,7 @@
 
     <ng-container *ngIf="!isLoading">
       <app-small-card-pokemon
+        class="grid-item"
         *ngFor="let pokemon of displayedPokemons"
         [imageUrl]="pokemon.sprites.other['official-artwork'].front_default"
         [name]="capitalizeFirstLetter(pokemon.name)"

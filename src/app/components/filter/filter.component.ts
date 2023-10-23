@@ -13,9 +13,9 @@ import { FilterData } from 'src/app/interfaces/pokemon-filter.interface';
 export class FilterComponent implements OnInit {
   tipos: any[] = [];
   searchTerm: string = '';
-  selectedType1: string = 'all';
-  selectedType2: string = 'all';
-  generation: string = 'all';
+  selectedType1: string = '';
+  selectedType2: string = '';
+  generation: string = '';
 
 
   constructor(private pokemonService: PokemonService) {}
