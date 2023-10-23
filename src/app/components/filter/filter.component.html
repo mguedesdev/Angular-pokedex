@@ -1,45 +1,48 @@
-
 <div class="filter_container">
+  <p class="filter-tittle">ENCONTRE SEU POKEMON</p>
+  <div class="filters">
+    <div class="search">
+      <div class="filter_item">
+        <input type="text" id="filter_name" placeholder="Nome ou ID do pokemon" [(ngModel)]="searchTerm" (input)="onSearchTermChange()">
+      </div>
+    </div>
 
-  <div class="search">
-    <div class="filter_item">
-      <input type="text" id="filter_name" placeholder="Nome ou ID do pokemon" [(ngModel)]="searchTerm" (input)="onSearchTermChange()">
+    <div class="filter">
+
+      <div class="filter_item">
+        <select name="filter_type1" id="filter_type1" [(ngModel)]="selectedType1" (change)="onSearchTermChange()">
+          <option value="" disabled selected>Tipo</option>
+          <option value="all">Todos</option>
+          <option *ngFor="let tipo of tipos" [value]="tipo.name">{{ capitalizeFirstLetter(tipo.name) }}</option>
+        </select>
+      </div>
+      <div class="filter_item">
+        <select name="filter_type2" id="filter_type2" [(ngModel)]="selectedType2" (change)="onSearchTermChange()">
+          <option value="" disabled selected>Tipo</option>
+          <option value="all">Todos</option>
+          <option *ngFor="let tipo of tipos" [value]="tipo.name">{{ capitalizeFirstLetter(tipo.name) }}</option>
+        </select>
+      </div>
+
+
+      <div class="filter_item">
+        <select name="filter_generation" id="filter_generation" [(ngModel)]="generation" (change)="onSearchTermChange()">
+          <option value="" disabled selected>Geração</option>
+          <option value="all">Todos</option>
+          <option value="1">1ª Geração</option>
+          <option value="2">2ª Geração</option>
+          <option value="3">3ª Geração</option>
+          <option value="4">4ª Geração</option>
+          <option value="5">5ª Geração</option>
+          <option value="6">6ª Geração</option>
+          <option value="7">7ª Geração</option>
+          <option value="8">8ª Geração</option>
+          <option value="9">9ª Geração</option>
+        </select>
+      </div>
+
     </div>
   </div>
 
-  <div class="filter">
 
-    <div class="filter_item">
-      <select name="filter_type1" id="filter_type1" [(ngModel)]="selectedType1" (change)="onSearchTermChange()">
-        <option value="" disabled selected>Tipo</option>
-        <option value="all">Todos</option>
-        <option *ngFor="let tipo of tipos" [value]="tipo.name">{{ capitalizeFirstLetter(tipo.name) }}</option>
-      </select>
-    </div>
-    <div class="filter_item">
-      <select name="filter_type2" id="filter_type2" [(ngModel)]="selectedType2" (change)="onSearchTermChange()">
-        <option value="" disabled selected>Tipo</option>
-        <option value="all">Todos</option>
-        <option *ngFor="let tipo of tipos" [value]="tipo.name">{{ capitalizeFirstLetter(tipo.name) }}</option>
-      </select>
-    </div>
-
-
-    <div class="filter_item">
-      <select name="filter_generation" id="filter_generation" [(ngModel)]="generation" (change)="onSearchTermChange()">
-        <option value="" disabled selected>Geração</option>
-        <option value="all">Todos</option>
-        <option value="1">1ª Geração</option>
-        <option value="2">2ª Geração</option>
-        <option value="3">3ª Geração</option>
-        <option value="4">4ª Geração</option>
-        <option value="5">5ª Geração</option>
-        <option value="6">6ª Geração</option>
-        <option value="7">7ª Geração</option>
-        <option value="8">8ª Geração</option>
-        <option value="9">9ª Geração</option>
-      </select>
-    </div>
-
-  </div>
 </div>
