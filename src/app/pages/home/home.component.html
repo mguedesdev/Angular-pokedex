@@ -19,7 +19,8 @@
           [imageUrl]="pokemon.sprites.other['official-artwork'].front_default"
           [name]="capitalizeFirstLetter(pokemon.name)"
           [id]="pokemon.id"
-          [types]="getPokemonTypes(pokemon)">
+          [types]="getPokemonTypes(pokemon)"
+          (click)="openPokemonViewer(pokemon)">
         </app-small-card-pokemon>
 
       </ng-container>
@@ -31,8 +32,16 @@
     </div>
   </div>
 
-  <app-pokedex-viewer></app-pokedex-viewer>
-
+  <app-pokedex-viewer
+    [imageUrl]="selectedPokemon?.sprites?.other['official-artwork']?.front_default ?? ''"
+    [name]="selectedPokemon?.name ?? ''"
+    [id]="selectedPokemon?.id ?? 0"
+    [types]="getPokemonTypes(selectedPokemon)"
+    [height]="selectedPokemon?.height ?? 0"
+    [weight]="selectedPokemon?.weight ?? 0"
+    [abilities]="selectedPokemon?.abilities ?? []"
+    [stats]="selectedPokemon?.stats ?? []"
+  ></app-pokedex-viewer>
 
 </div>
 

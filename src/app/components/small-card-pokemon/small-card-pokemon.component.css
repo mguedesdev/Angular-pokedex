@@ -24,7 +24,7 @@
   font-size: 20px;
   font-weight: bold;
   color: var(--preto);
-  margin: 10px 0px;
+  margin-top: 10px;
 }
 
 .card_image {
@@ -85,7 +85,7 @@
   font-size: 12px;
   font-weight: bold;
   color: var(--cinza-escuro);
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 

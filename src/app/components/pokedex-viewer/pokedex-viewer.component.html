@@ -1,3 +1,66 @@
 <div class="container_pokedex-viewer">
-  <p>pokedex-viewer works!</p>
+  <div class="pokedex-image">
+    <div class="image_background" [ngStyle]="{'background-color': getBackgroundColorForType(types[0])}"></div>
+    <div class="image_background "></div>
+    <img class="image_placeHolder" #imageElement [src]="imageUrl ? imageUrl : 'assets/charizard-silhueta.png'" alt="{{name}}">
+  </div>
+  <div class="pokedex-infos">
+    <p>{{id ? '#' + id : '#0'}}</p>
+    <h1>{{name ? capitalizeFirstLetter(name) : 'Pokemon'}}</h1>
+    <div class="types" *ngIf="types.length !== 0">
+      <div class="type" *ngFor="let item of types" [ngStyle]="{'background-color': item ? getBackgroundColorForType(item) : ''}">
+        <span>{{item ? capitalizeFirstLetter(item) : ''}}</span>
+      </div>
+    </div>
+
+    <div class="types" *ngIf="types.length === 0">
+      <div class="type">
+        <span>Tipo</span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <h3>POKEDEX ENTRY</h3>
+      <p *ngIf="description" [innerHTML]="description"></p>
+      <p *ngIf="!description">Description</p>
+    </div>
+
+    <h4>ABILITIES</h4>
+    <div class="abilities" *ngIf="abilities.length > 0">
+      <div class="ability" *ngFor="let item of abilities">
+        <p>{{item?.ability && item.ability.name ? capitalizeFirstLetter(item.ability.name) : ''}}</p>
+      </div>
+    </div>
+    <div class="abilities" *ngIf="abilities.length === 0">
+      <div class="ability" *ngFor="let item of [0, 1]">
+        <p>Ability</p>
+      </div>
+    </div>
+
+    <div class="container-info">
+      <div class="info-column">
+        <div class="info-item">
+          <h4>HEIGHT</h4>
+          <p>{{height ? (height / 10): 0}}m</p>
+        </div>
+        <div class="info-item">
+          <h4>WEIGHT</h4>
+          <p>{{weight ? (weight / 10): 0}}Kg</p>
+        </div>
+      </div>
+      <div class="info-column">
+        <div class="info-item">
+          <h4>CAPTURE RATE</h4>
+          <p>{{captureRate ? captureRate : 0}}</p>
+        </div>
+        <div class="info-item">
+          <h4>BASE EXP</h4>
+          <p>{{baseExperience ? baseExperience : 0}}</p>
+        </div>
+      </div>
+    </div>
+
+
+
+  </div>
 </div>

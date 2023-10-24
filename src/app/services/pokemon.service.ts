@@ -31,4 +31,12 @@ export class PokemonService {
     return this.http.get<PokemonGenerationResponse>(`${this.baseUrl}/generation/${generation}`);
   }
 
+  getPokemonSpecies(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/pokemon-species/${id}`);
+  }
+
+  getEvolutionChain(url: string): Observable<any> {
+    return this.http.get<any>(url);
+  }
+
 }

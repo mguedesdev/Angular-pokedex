@@ -17,6 +17,7 @@ export class HomeComponent {
   isLoading: boolean = true;
   placeholders: number[] = Array(21).fill(0);
   displayedPokemons: any[] = [];
+  selectedPokemon: any | null = {};
 
   constructor(private pokemonService: PokemonService) { }
 
@@ -34,7 +35,6 @@ export class HomeComponent {
     const pokemonDetailsObservables = pokemonList.map(pokemon => this.pokemonService.getPokemonDetails(pokemon.name));
     forkJoin(pokemonDetailsObservables).subscribe((pokemonDetails: PokemonDetail[]) => {
       this.pokemons = pokemonDetails.filter(pokemon => pokemon.id <= 1010);
-      console.log(this.pokemons);
 
       this.filteredPokemons = [...this.pokemons];
       this.updateDisplayedPokemons();
@@ -113,8 +113,9 @@ export class HomeComponent {
   }
 
   getPokemonTypes(pokemon: any): string[] {
-    return pokemon.types.map((type: any) => type.type.name);
+    return pokemon && pokemon.types ? pokemon.types.map((type: any) => type.type.name) : [];
   }
+
 
   getTotalPages(): number {
     return Math.ceil(this.filteredPokemons.length / this.pokemonsPerPage);
@@ -158,6 +159,12 @@ export class HomeComponent {
 
   capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  openPokemonViewer(pokemon: any): void {
+    this.selectedPokemon = pokemon;
+    console.log(this.selectedPokemon);
+
   }
 
 }

@@ -1,3 +1,5 @@
+import { PokemonAbility } from './pokemon-ability.interface';
+
 export interface PokemonDetail {
   id: number;
   name: string;
@@ -14,4 +16,5 @@ export interface PokemonDetail {
       name: string;
     }
   }>;
+  abilities: PokemonAbility[];
 }
