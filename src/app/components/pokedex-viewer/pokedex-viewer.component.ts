@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, ViewChild, OnInit } from '@angular/core';
 import { PokemonAbility } from 'src/app/interfaces/pokemon-ability.interface';
+import { PokemonStats } from 'src/app/interfaces/pokemon-stats.interface';
 import { PokemonService } from 'src/app/services/pokemon.service';
 
 @Component({
@@ -8,16 +9,23 @@ import { PokemonService } from 'src/app/services/pokemon.service';
   styleUrls: ['./pokedex-viewer.component.css']
 })
 export class PokedexViewerComponent {
+  @Input() pokemons: any[] = [];
   @Input() name: string | null = '';
   @Input() types: string[]  = [];
   @Input() description: string = '';
   @Input() abilities: PokemonAbility[] = [];
   @Input() height: number | null = 0;
   @Input() weight: number | null = 0;
-  @Input() stats: { name: string, value: number }[] = [];
+  @Input() stats: PokemonStats[] = [];
   @Input() baseExperience: number | null = 0;
   @Input() captureRate: number | null = 0;
   @Input() evolutionChain: { name: string, id: number }[] = [];
+  newStats: { label: string, value: number }[] = [];
+  pokemonEvolutionSilhueta: string[] = [
+    'assets/charmander-silhueta.png',
+    'assets/charmeleon-silhueta.png',
+    'assets/charizard-silhueta.png'
+  ]
   @ViewChild('imageElement') imageElement!: ElementRef;
 
   private _imageUrl: string | null = '';
@@ -59,6 +67,7 @@ export class PokedexViewerComponent {
   }
 
   processEvolutionChainResponse(response: any): void {
+    this.evolutionChain = [];
     if (response.chain.species && response.chain.species.name) {
       this.evolutionChain.push({ name: response.chain.species.name, id: this.getIdFromUrl(response.chain.species.url) });
     }
@@ -78,6 +87,11 @@ export class PokedexViewerComponent {
     }
   }
 
+  getPokemonImageEvolution(name: string): string {
+    const pokemonImage = this.pokemons.find(pokemon => pokemon.name === name)?.sprites.other['official-artwork'].front_default;
+    return pokemonImage || '';
+  }
+
   getIdFromUrl(url: string): number {
     const urlParts = url.split('/');
     return Number(urlParts[urlParts.length - 2]);
@@ -85,7 +99,7 @@ export class PokedexViewerComponent {
 
   processPokemonSpeciesResponse(response: any): void {
     if (response.flavor_text_entries && response.flavor_text_entries.length > 0) {
-      let rawDescription = response.flavor_text_entries[0].flavor_text;
+      let rawDescription =  response.flavor_text_entries.find((entry: any) => entry.language.name === 'en').flavor_text;
       this.description = rawDescription.replace(/\f/g, ' ');
     }else {
       this.description = 'No description available';
@@ -96,6 +110,7 @@ export class PokedexViewerComponent {
     if(response.capture_rate) {
       this.captureRate = response.capture_rate;
     }
+    this.statusPokemon();
   }
 
   changeImage() {
@@ -138,5 +153,13 @@ export class PokedexViewerComponent {
   capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+
+  statusPokemon() {
+    const statsLabels = ['HP', 'ATK', 'DEF', 'SpA', 'SpD', 'SPD'];
+    this.newStats = this.stats.map((stat, index) => ({ label: statsLabels[index], value: stat.base_stat }));
+    const total = this.stats.reduce((acc, stat) => acc + stat.base_stat, 0);
+    this.newStats.push({ label: 'TOT', value: total });
+  }
+
 
 }

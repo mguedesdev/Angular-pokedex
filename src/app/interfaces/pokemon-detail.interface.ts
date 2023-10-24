@@ -1,4 +1,5 @@
 import { PokemonAbility } from './pokemon-ability.interface';
+import { PokemonStats } from './pokemon-stats.interface';
 
 export interface PokemonDetail {
   id: number;
@@ -17,4 +18,5 @@ export interface PokemonDetail {
     }
   }>;
   abilities: PokemonAbility[];
+  stats: PokemonStats[];
 }

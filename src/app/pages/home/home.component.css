@@ -11,6 +11,7 @@
 
 .home_content {
   width: 100%;
+  max-width: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,7 +27,7 @@
   min-height: 90vh;
   height: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
   grid-auto-rows: 295px;
   grid-gap: 10px;
   width: 100%;

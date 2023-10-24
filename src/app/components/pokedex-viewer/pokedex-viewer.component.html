@@ -1,13 +1,14 @@
 <div class="container_pokedex-viewer">
   <div class="pokedex-image">
     <div class="image_background" [ngStyle]="{'background-color': getBackgroundColorForType(types[0])}"></div>
-    <div class="image_background "></div>
     <img class="image_placeHolder" #imageElement [src]="imageUrl ? imageUrl : 'assets/charizard-silhueta.png'" alt="{{name}}">
   </div>
   <div class="pokedex-infos">
     <p>{{id ? '#' + id : '#0'}}</p>
     <h1>{{name ? capitalizeFirstLetter(name) : 'Pokemon'}}</h1>
-    <div class="types" *ngIf="types.length !== 0">
+
+
+    <div class="types" *ngIf="types.length > 0">
       <div class="type" *ngFor="let item of types" [ngStyle]="{'background-color': item ? getBackgroundColorForType(item) : ''}">
         <span>{{item ? capitalizeFirstLetter(item) : ''}}</span>
       </div>
@@ -60,7 +61,58 @@
       </div>
     </div>
 
+    <h4>STATS</h4>
+    <div class="stats-container">
+      <ng-container *ngIf="newStats.length > 0">
+        <div class="stats" *ngFor="let stat of newStats">
+          <div class="stat">
+              <p class="{{stat.label}}">{{stat.label}}</p>
+              {{stat.value}}
+          </div>
+        </div>
+      </ng-container>
 
+      <ng-container *ngIf="newStats.length === 0">
+        <div class="stats" *ngFor="let label of ['HP', 'ATK', 'DEF', 'SpA', 'SpD', 'SPD', 'TOT']">
+          <div class="stat">
+              <p class="{{label}}">{{label}}</p>
+              0
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="evolutionChain">
+      <h4>EVOLUTION CHAIN</h4>
+      <div class="evolutionChain-container" *ngIf="evolutionChain.length > 0">
+        <div class="evolutionChain-item" *ngFor="let item of evolutionChain; let i = index">
+          <div class="item">
+            <div class="evolutionChain-item__image">
+              <img [src]="getPokemonImageEvolution(item.name)" alt="{{item.name}}">
+            </div>
+            <div class="evolutionChain-item__name">
+              <p>{{item.name}}</p>
+            </div>
+          </div>
+          <img class="arrow-evolution" *ngIf="i < evolutionChain.length - 1" src="assets/icon/arrow-evolution.png" alt="Arrow for evolution">
+      </div>
+    </div>
+
+      <div class="evolutionChain-container" *ngIf="evolutionChain.length === 0">
+        <div class="evolutionChain-item" *ngFor="let item of pokemonEvolutionSilhueta; let i = index">
+          <div class="item">
+            <div class="evolutionChain-item__image">
+              <img class="image_placeHolder" src={{item}} alt="">
+            </div>
+            <div class="evolutionChain-item__name">
+              <p>Pokemon</p>
+            </div>
+          </div>
+          <img class="arrow-evolution" *ngIf="i < pokemonEvolutionSilhueta.length - 1" src="assets/icon/arrow-evolution.png" alt="Arrow for evolution">
+        </div>
+      </div>
+    </div>
 
   </div>
+
 </div>

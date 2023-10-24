@@ -1,5 +1,5 @@
 .container_pokedex-viewer {
-  height: 80vh;
+
   background-color: var(--branco);
   margin-left: 20px;
   margin-top: 85px;
@@ -8,10 +8,14 @@
   box-shadow: 0px 6px 20px 0px rgba(61, 61, 61, 0.2);
   position: relative;
 
+  max-width: 100%;
+
 }
 
 :host {
-  width: 40%;
+  width: 100%;
+  max-width: 30%;
+  height: 100%;
 }
 
 .pokedex-image {
@@ -136,7 +140,7 @@
   font-weight: bold;
   color: black;
 
-  width: 90%;
+  width: 50%;
 
   margin: 0px 5px;
 }
@@ -179,6 +183,127 @@
   width: 90%;
 }
 
+.stats-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.stats {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat {
+  background-color: #F6F8FC;
+  border-radius: 20px;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px;
+}
+
+.stat > p {
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--branco);
+  margin: 0;
+  border-radius: 50px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.HP {
+  background-color: #DF2140;
+}
+
+.ATK {
+  background-color: #FF994D;
+}
+
+.DEF {
+  background-color: #FFDC41;
+}
+
+.SpA {
+  background-color: #85DDFF;
+}
+
+.SpD {
+  background-color: #A8EF95;
+}
+
+.SPD {
+  background-color: #FB94A8;
+}
+
+.TOT {
+  background-color: #7195DC;
+}
+.evolutionChain {
+  width: 100%;
+  display: flex;
+  flex-direction:column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  margin-top: 20px;
+}
+
+.evolutionChain-container {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0;
+}
+
+.evolutionChain-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.evolutionChain-item__image {
+  max-width: 50px;
+  max-height: 50px;
+}
+
+.evolutionChain-item__image > img {
+  width: 100%;
+  height: 100%;
+}
+
+.arrow-evolution {
+  max-width: 20px;
+  max-height: 20px;
+  margin: 0 15px;
+}
+
+.evolutionChain-item__name > p {
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--cinza-escuro);
+  margin: 0;
+  text-transform: capitalize;
+}
 
 /* PlaceHolder */
 
