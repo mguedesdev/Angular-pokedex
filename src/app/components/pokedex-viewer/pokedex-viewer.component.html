@@ -88,15 +88,15 @@
         <div class="evolutionChain-item" *ngFor="let item of evolutionChain; let i = index">
           <div class="item">
             <div class="evolutionChain-item__image">
-              <img [src]="getPokemonImageEvolution(item.name)" alt="{{item.name}}">
+              <img [src]="getPokemonImageEvolution(item.id)" alt="{{item.name}}">
             </div>
             <div class="evolutionChain-item__name">
               <p>{{item.name}}</p>
             </div>
           </div>
           <img class="arrow-evolution" *ngIf="i < evolutionChain.length - 1" src="assets/icon/arrow-evolution.png" alt="Arrow for evolution">
+        </div>
       </div>
-    </div>
 
       <div class="evolutionChain-container" *ngIf="evolutionChain.length === 0">
         <div class="evolutionChain-item" *ngFor="let item of pokemonEvolutionSilhueta; let i = index">
@@ -113,6 +113,18 @@
       </div>
     </div>
 
+  <div class="pokedex-navigation" *ngIf="previousAndNextPokemon.length > 0">
+    <button class="pokedex-navigation__button" (click)="previousPokemon()">
+      <img class="navigation-arrow-left navigation-arrow" src="assets/icon/right-arrow.png" alt="">
+      <img class="navigationImage" [src]="previousAndNextPokemon[0].url" alt="{{previousAndNextPokemon[0].name}}">
+      <span class="navigationName">{{previousAndNextPokemon[0].name}}</span>
+    </button>
+    <div class="hr"></div>
+    <button class="pokedex-navigation__button" (click)="nextPokemon()">
+      <span class="navigationName">{{previousAndNextPokemon[1].name}}</span>
+      <img class="navigationImage" [src]="previousAndNextPokemon[1].url" alt="{{previousAndNextPokemon[1].name}}">
+      <img class="navigation-arrow-right navigation-arrow" src="assets/icon/right-arrow.png" alt="">
+    </button>
   </div>
 
 </div>

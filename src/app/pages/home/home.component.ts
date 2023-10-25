@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { forkJoin } from 'rxjs';
+import { PokedexViewerComponent } from 'src/app/components/pokedex-viewer/pokedex-viewer.component';
 import { PokemonDetail } from 'src/app/interfaces/pokemon-detail.interface';
 import { FilterData } from 'src/app/interfaces/pokemon-filter.interface';
 import { PokemonService } from 'src/app/services/pokemon.service';
@@ -18,6 +19,9 @@ export class HomeComponent {
   placeholders: number[] = Array(21).fill(0);
   displayedPokemons: any[] = [];
   selectedPokemon: any | null = {};
+
+  @ViewChild(PokedexViewerComponent, { static: false }) pokedexViewer!: PokedexViewerComponent;
+
 
   constructor(private pokemonService: PokemonService) { }
 
@@ -163,6 +167,8 @@ export class HomeComponent {
 
   openPokemonViewer(pokemon: any): void {
     this.selectedPokemon = pokemon;
+    this.pokedexViewer.clearEvolutionChain();
+    this.pokedexViewer.getPreviousAndNextPokemon(this.selectedPokemon.id);
     console.log(this.selectedPokemon);
 
   }

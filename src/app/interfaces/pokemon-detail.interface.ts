@@ -19,4 +19,11 @@ export interface PokemonDetail {
   }>;
   abilities: PokemonAbility[];
   stats: PokemonStats[];
+  species: {
+    name: string;
+    url: string;
+  };
+  weight: number;
+  height: number;
+  base_experience: number;
 }

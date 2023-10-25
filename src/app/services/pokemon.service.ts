@@ -15,8 +15,8 @@ export class PokemonService {
 
   constructor(private http: HttpClient) { }
 
-  getPokemonDetails(name: string): Observable<PokemonDetail> {
-    return this.http.get<PokemonDetail>(`${this.baseUrl}/pokemon/${name}`);
+  getPokemonDetails(id: number): Observable<PokemonDetail> {
+    return this.http.get<PokemonDetail>(`${this.baseUrl}/pokemon/${id}`);
   }
 
   getPokemonTypes(): Observable<PokemonTypesResponse> {

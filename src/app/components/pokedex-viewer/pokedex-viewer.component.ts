@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, ViewChild, OnInit } from '@angular/core';
 import { PokemonAbility } from 'src/app/interfaces/pokemon-ability.interface';
+import { PokemonDetail } from 'src/app/interfaces/pokemon-detail.interface';
 import { PokemonStats } from 'src/app/interfaces/pokemon-stats.interface';
 import { PokemonService } from 'src/app/services/pokemon.service';
 
@@ -27,9 +28,12 @@ export class PokedexViewerComponent {
     'assets/charizard-silhueta.png'
   ]
   @ViewChild('imageElement') imageElement!: ElementRef;
+  previousAndNextPokemon: {name:string, id:number, url:string}[] = [];
+
 
   private _imageUrl: string | null = '';
   private _id: number | null = 0;
+  pokemon: PokemonDetail | [] = [];
 
   @Input()
   set imageUrl(value: string | null) {
@@ -67,7 +71,6 @@ export class PokedexViewerComponent {
   }
 
   processEvolutionChainResponse(response: any): void {
-    this.evolutionChain = [];
     if (response.chain.species && response.chain.species.name) {
       this.evolutionChain.push({ name: response.chain.species.name, id: this.getIdFromUrl(response.chain.species.url) });
     }
@@ -87,8 +90,8 @@ export class PokedexViewerComponent {
     }
   }
 
-  getPokemonImageEvolution(name: string): string {
-    const pokemonImage = this.pokemons.find(pokemon => pokemon.name === name)?.sprites.other['official-artwork'].front_default;
+  getPokemonImageEvolution(id: number): string {
+    const pokemonImage = this.pokemons.find(pokemon => pokemon.id === id)?.sprites.other['official-artwork'].front_default;
     return pokemonImage || '';
   }
 
@@ -161,5 +164,44 @@ export class PokedexViewerComponent {
     this.newStats.push({ label: 'TOT', value: total });
   }
 
+  clearEvolutionChain(): void {
+      this.evolutionChain = [];
+  }
+
+  updatePokemon(id: number): void {
+    this.clearEvolutionChain();
+    this.getPreviousAndNextPokemon(id);
+    this.pokemonService.getPokemonDetails(id).subscribe((response: PokemonDetail) => {
+      this.pokemon = response;
+      this.name = response.name;
+      this.types = response.types.map(type => type.type.name);
+      this.height = response.height;
+      this.weight = response.weight;
+      this.stats = response.stats;
+      this.baseExperience = response.base_experience;
+      this.imageUrl = response.sprites.other['official-artwork'].front_default;
+      this.id = response.id;
+
+      this.fetchEvolutionChain(this.pokemon.species.url);
+    });
+  }
+
+  getPreviousAndNextPokemon(id:number): void {
+    if(id){
+      this.previousAndNextPokemon = this.pokemons.filter(pokemon => pokemon.id === (id ?? 0) - 1 || pokemon.id === (id ?? 0) + 1).map(pokemon => {
+        return { name: pokemon.name, id: pokemon.id, url: pokemon.sprites.other['official-artwork'].front_default };
+      });
+    }
+    console.log(this.previousAndNextPokemon);
+
+  }
+
+  previousPokemon(): void {
+    this.updatePokemon(this.id ? this.id - 1 : 1);
+  }
+
+  nextPokemon(): void {
+    this.updatePokemon(this.id ? this.id + 1 : 1);
+  }
 
 }
