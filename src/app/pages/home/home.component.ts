@@ -170,6 +170,11 @@ export class HomeComponent {
     this.pokedexViewer.clearEvolutionChain();
     this.pokedexViewer.getPreviousAndNextPokemon(this.selectedPokemon.id);
     console.log(this.selectedPokemon);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+
 
   }
 

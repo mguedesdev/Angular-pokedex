@@ -27,14 +27,12 @@ export class PokedexViewerComponent {
     'assets/charmeleon-silhueta.png',
     'assets/charizard-silhueta.png'
   ]
-  @ViewChild('imageElement') imageElement!: ElementRef;
+  pokemon: PokemonDetail | null = null;
   previousAndNextPokemon: {name:string, id:number, url:string}[] = [];
 
+  @ViewChild('imageElement') imageElement!: ElementRef;
 
   private _imageUrl: string | null = '';
-  private _id: number | null = 0;
-  pokemon: PokemonDetail | [] = [];
-
   @Input()
   set imageUrl(value: string | null) {
     this._imageUrl = value;
@@ -44,6 +42,7 @@ export class PokedexViewerComponent {
     return this._imageUrl;
   }
 
+  private _id: number | null = 0;
   @Input() set id(value: number | null) {
     this._id = value;
     if (value) {
@@ -71,17 +70,17 @@ export class PokedexViewerComponent {
   }
 
   processEvolutionChainResponse(response: any): void {
-    if (response.chain.species && response.chain.species.name) {
+    if (response?.chain?.species?.name) {
       this.evolutionChain.push({ name: response.chain.species.name, id: this.getIdFromUrl(response.chain.species.url) });
     }
-    if (response.chain.evolves_to && response.chain.evolves_to.length > 0) {
+    if (response?.chain?.evolves_to && response.chain.evolves_to.length > 0) {
       response.chain.evolves_to.forEach((evolution: any) => {
-        if (evolution.species && evolution.species.name) {
+        if (evolution?.species?.name) {
           this.evolutionChain.push({ name: evolution.species.name, id: this.getIdFromUrl(evolution.species.url) });
         }
-        if (evolution.evolves_to && evolution.evolves_to.length > 0) {
+        if (evolution?.evolves_to && evolution.evolves_to.length > 0) {
           evolution.evolves_to.forEach((evolution2: any) => {
-            if (evolution2.species && evolution2.species.name) {
+            if (evolution2?.species?.name) {
               this.evolutionChain.push({ name: evolution2.species.name, id: this.getIdFromUrl(evolution2.species.url) });
             }
           });
@@ -101,13 +100,13 @@ export class PokedexViewerComponent {
   }
 
   processPokemonSpeciesResponse(response: any): void {
-    if (response.flavor_text_entries && response.flavor_text_entries.length > 0) {
+    if (response.flavor_text_entries?.length > 0) {
       let rawDescription =  response.flavor_text_entries.find((entry: any) => entry.language.name === 'en').flavor_text;
       this.description = rawDescription.replace(/\f/g, ' ');
     }else {
       this.description = 'No description available';
     }
-    if(response.evolution_chain && response.evolution_chain.url) {
+    if(response.evolution_chain?.url) {
       this.fetchEvolutionChain(response.evolution_chain.url);
     }
     if(response.capture_rate) {
@@ -171,37 +170,62 @@ export class PokedexViewerComponent {
   updatePokemon(id: number): void {
     this.clearEvolutionChain();
     this.getPreviousAndNextPokemon(id);
-    this.pokemonService.getPokemonDetails(id).subscribe((response: PokemonDetail) => {
-      this.pokemon = response;
-      this.name = response.name;
-      this.types = response.types.map(type => type.type.name);
-      this.height = response.height;
-      this.weight = response.weight;
-      this.stats = response.stats;
-      this.baseExperience = response.base_experience;
-      this.imageUrl = response.sprites.other['official-artwork'].front_default;
-      this.id = response.id;
+    let pokemonUpdate = this.pokemons.find(pokemon => pokemon.id === id);
+    if(pokemonUpdate) {
+      this.pokemon = pokemonUpdate;
+      this.name = pokemonUpdate.name;
+      this.types = pokemonUpdate.types.map((typePokemon: { type: { name: string } }) => typePokemon.type.name);
+      this.height = pokemonUpdate.height;
+      this.weight = pokemonUpdate.weight;
+      this.stats = pokemonUpdate.stats;
+      this.baseExperience = pokemonUpdate.base_experience;
+      this.imageUrl = pokemonUpdate.sprites.other['official-artwork'].front_default;
+      this.id = pokemonUpdate.id;
 
-      this.fetchEvolutionChain(this.pokemon.species.url);
-    });
+      if (this.pokemon) {
+        this.fetchEvolutionChain(this.pokemon.species.url);
+      }
+
+    }
   }
 
   getPreviousAndNextPokemon(id:number): void {
     if(id){
-      this.previousAndNextPokemon = this.pokemons.filter(pokemon => pokemon.id === (id ?? 0) - 1 || pokemon.id === (id ?? 0) + 1).map(pokemon => {
-        return { name: pokemon.name, id: pokemon.id, url: pokemon.sprites.other['official-artwork'].front_default };
-      });
+      if(id === 1 ) {
+        this.previousAndNextPokemon = this.pokemons.filter(pokemon => pokemon.id === this.pokemons.length || pokemon.id === (id ?? 0) + 1).map(pokemon => {
+          return { name: pokemon.name, id: pokemon.id, url: pokemon.sprites.other['official-artwork'].front_default };
+        });
+        this.previousAndNextPokemon.reverse();
+      }
+      else if ( id === 1010 ) {
+        this.previousAndNextPokemon = this.pokemons.filter(pokemon => pokemon.id === (id ?? 0) - 1 || pokemon.id === 1).map(pokemon => {
+          return { name: pokemon.name, id: pokemon.id, url: pokemon.sprites.other['official-artwork'].front_default };
+        });
+        this.previousAndNextPokemon.reverse();
+      }
+      else {
+        this.previousAndNextPokemon = this.pokemons.filter(pokemon => pokemon.id === (id ?? 0) - 1 || pokemon.id === (id ?? 0) + 1).map(pokemon => {
+          return { name: pokemon.name, id: pokemon.id, url: pokemon.sprites.other['official-artwork'].front_default };
+        });
+        this.previousAndNextPokemon.sort((a, b) => a.id - b.id);
+      }
     }
-    console.log(this.previousAndNextPokemon);
-
   }
 
   previousPokemon(): void {
-    this.updatePokemon(this.id ? this.id - 1 : 1);
+    if(this.id === 1) {
+      this.updatePokemon(this.pokemons[this.pokemons.length - 1].id);
+    }else {
+      this.updatePokemon(this.id ? this.id - 1 : 1);
+    }
   }
 
   nextPokemon(): void {
-    this.updatePokemon(this.id ? this.id + 1 : 1);
+    if(this.id === 1010) {
+      this.updatePokemon(this.pokemons[0].id);
+    }else {
+      this.updatePokemon(this.id ? this.id + 1 : 1);
+    }
   }
 
 }
