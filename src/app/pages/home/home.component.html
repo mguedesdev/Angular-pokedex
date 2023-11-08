@@ -19,6 +19,7 @@
 
       <ng-container *ngIf="!isLoading">
         <app-small-card-pokemon
+          (closeViewer)="toggleViewer()"
           class="grid-item"
           *ngFor="let pokemon of displayedPokemons"
           [imageUrl]="pokemon.sprites.other['official-artwork'].front_default"
@@ -39,6 +40,7 @@
 
   <div class="home_pokedex_viewer" [class.open]="showViewer">
     <app-pokedex-viewer
+      (closeViewer)="toggleViewer()"
       [imageUrl]="selectedPokemon?.sprites?.other['official-artwork']?.front_default ?? ''"
       [name]="selectedPokemon?.name ?? ''"
       [id]="selectedPokemon?.id ?? 0"
@@ -51,6 +53,7 @@
       [pokemons]="pokemons"
     ></app-pokedex-viewer>
   </div>
+
 
 </div>
 

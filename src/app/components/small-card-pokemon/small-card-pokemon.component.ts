@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-small-card-pokemon',
@@ -10,6 +10,8 @@ export class SmallCardPokemonComponent {
   @Input() name: string | null = '';
   @Input() id: number | null = 0;
   @Input() types: string[]  = [];
+
+  @Output() closeViewer = new EventEmitter<void>();
 
   getBackgroundColorForType(type: string): string {
     const typeColors: { [key: string]: string } = {
@@ -41,4 +43,11 @@ export class SmallCardPokemonComponent {
   capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
+
+  pokemonSelectedClick(): void {
+    console.log('pokemonSelectedClick');
+
+    this.closeViewer.emit();
+  }
+
 }

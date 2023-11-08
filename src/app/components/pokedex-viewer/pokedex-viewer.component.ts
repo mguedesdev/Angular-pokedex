@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild, OnInit, Output, EventEmitter } from '@angular/core';
 import { PokemonAbility } from 'src/app/interfaces/pokemon-ability.interface';
 import { PokemonDetail } from 'src/app/interfaces/pokemon-detail.interface';
 import { PokemonStats } from 'src/app/interfaces/pokemon-stats.interface';
@@ -31,6 +31,8 @@ export class PokedexViewerComponent {
   previousAndNextPokemon: {name:string, id:number, url:string}[] = [];
 
   @ViewChild('imageElement') imageElement!: ElementRef;
+
+  @Output() closeViewer = new EventEmitter<void>();
 
   private _imageUrl: string | null = '';
   @Input()
@@ -226,6 +228,10 @@ export class PokedexViewerComponent {
     }else {
       this.updatePokemon(this.id ? this.id + 1 : 1);
     }
+  }
+
+  closeViewerClick(): void {
+    this.closeViewer.emit();
   }
 
 }

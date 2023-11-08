@@ -195,6 +195,12 @@ export class HomeComponent {
     this.showFilter = !this.showFilter;
   }
 
+  toggleViewer(): void {
+    console.log(this.showViewer);
+
+    this.showViewer = !this.showViewer;
+  }
+
 
 }
 

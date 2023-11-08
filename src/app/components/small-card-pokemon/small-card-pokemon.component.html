@@ -1,4 +1,4 @@
-<div *ngIf="imageUrl" class="card_container">
+<div *ngIf="imageUrl" class="card_container" (click)="pokemonSelectedClick()">
   <div class="card_image">
     <div class="card_background" [ngStyle]="{'background-color': getBackgroundColorForType(types[0])}"></div>
     <img [src]="imageUrl" alt="{{name}}">
