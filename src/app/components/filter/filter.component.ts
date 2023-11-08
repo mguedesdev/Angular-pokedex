@@ -80,6 +80,10 @@ export class FilterComponent implements OnInit {
     this.onSearchTermChange();
   }
 
+  closeFilterMenu(): void {
+
+  }
+
 
   onSearchTermChange(): void {
     this.searchTermChanged.emit({

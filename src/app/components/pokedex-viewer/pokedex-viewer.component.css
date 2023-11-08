@@ -375,3 +375,9 @@
 .image_placeHolder {
   filter: grayscale(100%) brightness(100%) contrast(0%);
 }
+
+@media (max-width: 1000px) {
+  .container_pokedex-viewer {
+    display: none;
+  }
+}
