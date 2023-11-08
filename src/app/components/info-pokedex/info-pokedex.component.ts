@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PokemonAbility } from 'src/app/interfaces/pokemon-ability.interface';
 import { PokemonStats } from 'src/app/interfaces/pokemon-stats.interface';
 
@@ -12,7 +12,6 @@ export class InfoPokedexComponent {
   @Input() abilities: PokemonAbility[] = [];
   @Input() height: number | null = 0;
   @Input() weight: number | null = 0;
-  @Input() stats: PokemonStats[] = [];
   @Input() baseExperience: number | null = 0;
   @Input() captureRate: number | null = 0;
   newStats: { label: string, value: number }[] = [];
@@ -22,5 +21,21 @@ export class InfoPokedexComponent {
     this.newStats = this.stats.map((stat, index) => ({ label: statsLabels[index], value: stat.base_stat }));
     const total = this.stats.reduce((acc, stat) => acc + stat.base_stat, 0);
     this.newStats.push({ label: 'TOT', value: total });
+  }
+
+  ngOnInit(): void {
+    this.statusPokemon();
+  }
+
+  private _stats: PokemonStats[] = [];
+
+  @Input()
+  set stats(value: PokemonStats[]) {
+    this._stats = value;
+    this.statusPokemon();
+  }
+
+  get stats(): PokemonStats[] {
+    return this._stats;
   }
 }

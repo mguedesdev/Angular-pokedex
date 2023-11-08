@@ -154,3 +154,21 @@
 .TOT {
   background-color: #7195DC;
 }
+
+
+@media (max-width: 600px) {
+
+  .pokedex-infos {
+    margin-top: 180px;
+  }
+
+  .entry > p {
+    font-size: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+  }
+}

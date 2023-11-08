@@ -31,6 +31,22 @@
       [captureRate]="captureRate">
     </app-info-pokedex>
 
+    <div class="evolutionChain">
+      <h4>EVOLUTION CHAIN</h4>
+      <div class="evolutionChain-container" *ngIf="evolutionChain.length > 0">
+        <div class="evolutionChain-item" *ngFor="let item of evolutionChain; let i = index">
+          <div class="item">
+            <div class="evolutionChain-item__image">
+              <img [src]="getPokemonImageEvolution(item.id)" alt="{{item.name}}">
+            </div>
+            <div class="evolutionChain-item__name">
+              <p>{{item.name}}</p>
+            </div>
+          </div>
+          <img class="arrow-evolution" *ngIf="i < evolutionChain.length - 1" src="assets/icon/arrow-evolution.png" alt="Arrow for evolution">
+        </div>
+      </div>
+
       <div class="evolutionChain-container" *ngIf="evolutionChain.length === 0">
         <div class="evolutionChain-item" *ngFor="let item of pokemonEvolutionSilhueta; let i = index">
           <div class="item">

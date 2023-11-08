@@ -114,7 +114,7 @@ export class PokedexViewerComponent {
     if(response.capture_rate) {
       this.captureRate = response.capture_rate;
     }
-    this.statusPokemon();
+
   }
 
   changeImage() {
@@ -156,13 +156,6 @@ export class PokedexViewerComponent {
 
   capitalizeFirstLetter(string: string): string {
     return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  statusPokemon() {
-    const statsLabels = ['HP', 'ATK', 'DEF', 'SpA', 'SpD', 'SPD'];
-    this.newStats = this.stats.map((stat, index) => ({ label: statsLabels[index], value: stat.base_stat }));
-    const total = this.stats.reduce((acc, stat) => acc + stat.base_stat, 0);
-    this.newStats.push({ label: 'TOT', value: total });
   }
 
   clearEvolutionChain(): void {
