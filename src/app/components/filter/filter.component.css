@@ -99,23 +99,17 @@
   margin-right: 10px;
 }
 
-.filter_button {
-  display: none;
-}
-
 .button_filter {
   display: none;
+
 }
 
 
 @media (max-width: 1000px) {
+
   .filter_container {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
+    width: 80%;
     height: 100vh;
-    margin-bottom: 0;
     background-color: #F6F8FC;
     z-index: 5;
     padding: 20px;
@@ -127,7 +121,6 @@
   }
 
   .filter_button {
-    display: block;
     position: absolute;
     bottom: 5%;
     left: 50%;
@@ -142,6 +135,10 @@
     background-color: #e61c1c;
     color: #fff;
     box-sizing: border-box;
+  }
+
+  .button_filter {
+    display: block;
   }
 
 }

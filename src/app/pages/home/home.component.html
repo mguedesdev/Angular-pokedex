@@ -2,13 +2,16 @@
 
 <div class="home_container">
 
-  <div class="home_content">
+  <div class="home_content" >
     <div class="filter_item_select">
-      <button class="open_filter_button">Filters</button>
+      <button class="open_filter_button" (click)="toggleFilter()">Filters</button>
+
     </div>
 
-    <div class="home_filter">
-      <app-filter (searchTermChanged)="filterPokemons($event)"></app-filter>
+    <div class="home_filter" [class.open]="showFilter">
+      <app-filter (closeFilter)="toggleFilter()" (searchTermChanged)="filterPokemons($event)" ></app-filter>
+      <button class="close_filter" (click)="toggleFilter()"></button>
+
     </div>
 
     <div class="home_pokemon__list">

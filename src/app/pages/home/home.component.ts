@@ -19,9 +19,9 @@ export class HomeComponent {
   placeholders: number[] = Array(21).fill(0);
   displayedPokemons: any[] = [];
   selectedPokemon: any | null = {};
+  showFilter = false;
 
   @ViewChild(PokedexViewerComponent, { static: false }) pokedexViewer!: PokedexViewerComponent;
-
 
   constructor(private pokemonService: PokemonService) { }
 
@@ -32,6 +32,7 @@ export class HomeComponent {
   fetchAllPokemons(): void {
     this.pokemonService.getAllPokemons().subscribe(response => {
       this.processPokemonListResponse(response.results);
+
     });
   }
 
@@ -43,6 +44,7 @@ export class HomeComponent {
       this.filteredPokemons = [...this.pokemons];
       this.updateDisplayedPokemons();
       this.isLoading = false;
+
     });
   }
 
@@ -86,7 +88,7 @@ export class HomeComponent {
     }
 
     this.updateDisplayedPokemons();
-}
+  }
 
 
   filterByName(searchTerm: string): void {
@@ -174,9 +176,12 @@ export class HomeComponent {
       top: 0,
       behavior: 'smooth'
     });
-
-
   }
+
+  toggleFilter(): void {
+    this.showFilter = !this.showFilter;
+  }
+
 
 }
 

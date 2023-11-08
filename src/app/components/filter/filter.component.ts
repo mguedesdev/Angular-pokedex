@@ -38,6 +38,8 @@ export class FilterComponent implements OnInit {
     generation: false
   };
 
+  @Output() closeFilter = new EventEmitter<void>();
+
   setHover(type: string): void {
     this.hoveredTypes[type] = true;
   }
@@ -49,12 +51,12 @@ export class FilterComponent implements OnInit {
   toggleDropdown(dropdownName: DropdownNames): void {
     if (this.dropdowns[dropdownName]) {
       this.dropdowns[dropdownName] = false;
-  } else {
-      Object.keys(this.dropdowns).forEach(key => {
-          this.dropdowns[key as DropdownNames] = false;
-      });
-      this.dropdowns[dropdownName] = true;
-  }
+    } else {
+        Object.keys(this.dropdowns).forEach(key => {
+            this.dropdowns[key as DropdownNames] = false;
+        });
+        this.dropdowns[dropdownName] = true;
+    }
   }
 
   selectOption(dropdownName: DropdownNames, value: string | number): void {
@@ -80,8 +82,8 @@ export class FilterComponent implements OnInit {
     this.onSearchTermChange();
   }
 
-  closeFilterMenu(): void {
-
+  onCloseFilterClick(): void {
+    this.closeFilter.emit();
   }
 
 
