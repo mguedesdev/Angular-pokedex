@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { forkJoin } from 'rxjs';
+import { forkJoin, map } from 'rxjs';
 import { PokedexViewerComponent } from 'src/app/components/pokedex-viewer/pokedex-viewer.component';
 import { PokemonDetail } from 'src/app/interfaces/pokemon-detail.interface';
 import { FilterData } from 'src/app/interfaces/pokemon-filter.interface';
@@ -37,7 +37,15 @@ export class HomeComponent {
   }
 
   processPokemonListResponse(pokemonList: any[]): void {
-    const pokemonDetailsObservables = pokemonList.map(pokemon => this.pokemonService.getPokemonDetails(pokemon.name));
+    const pokemonDetailsObservables = pokemonList.map(pokemon => {
+      return this.pokemonService.getPokemonDetails(pokemon.name).pipe(
+        map(details => {
+          details.sprites.other['official-artwork'].front_default = this.getPokemonImageUrl(details.id);
+          return details;
+        })
+      );
+    });
+
     forkJoin(pokemonDetailsObservables).subscribe((pokemonDetails: PokemonDetail[]) => {
       this.pokemons = pokemonDetails.filter(pokemon => pokemon.id <= 1010);
 
@@ -46,6 +54,10 @@ export class HomeComponent {
       this.isLoading = false;
 
     });
+  }
+
+  getPokemonImageUrl(pokemonId: number): string {
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`;
   }
 
   updateDisplayedPokemons(): void {
