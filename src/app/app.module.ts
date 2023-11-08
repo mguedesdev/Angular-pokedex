@@ -14,6 +14,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { InfoPokedexComponent } from './components/info-pokedex/info-pokedex.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { FormsModule } from '@angular/forms';
     WhoPokemonComponent,
     FooterComponent,
     FilterComponent,
+    InfoPokedexComponent,
   ],
   imports: [
     BrowserModule,

@@ -21,83 +21,15 @@
       </div>
     </div>
 
-    <div class="entry">
-      <h3>POKEDEX ENTRY</h3>
-      <p *ngIf="description" [innerHTML]="description"></p>
-      <p *ngIf="!description">Description</p>
-    </div>
-
-    <h4>ABILITIES</h4>
-    <div class="abilities" *ngIf="abilities.length > 0">
-      <div class="ability" *ngFor="let item of abilities">
-        <p>{{item?.ability && item.ability.name ? capitalizeFirstLetter(item.ability.name) : ''}}</p>
-      </div>
-    </div>
-    <div class="abilities" *ngIf="abilities.length === 0">
-      <div class="ability" *ngFor="let item of [0, 1]">
-        <p>Ability</p>
-      </div>
-    </div>
-
-    <div class="container-info">
-      <div class="info-column">
-        <div class="info-item">
-          <h4>HEIGHT</h4>
-          <p>{{height ? (height / 10): 0}}m</p>
-        </div>
-        <div class="info-item">
-          <h4>WEIGHT</h4>
-          <p>{{weight ? (weight / 10): 0}}Kg</p>
-        </div>
-      </div>
-      <div class="info-column">
-        <div class="info-item">
-          <h4>CAPTURE RATE</h4>
-          <p>{{captureRate ? captureRate : 0}}</p>
-        </div>
-        <div class="info-item">
-          <h4>BASE EXP</h4>
-          <p>{{baseExperience ? baseExperience : 0}}</p>
-        </div>
-      </div>
-    </div>
-
-    <h4>STATS</h4>
-    <div class="stats-container">
-      <ng-container *ngIf="newStats.length > 0">
-        <div class="stats" *ngFor="let stat of newStats">
-          <div class="stat">
-              <p class="{{stat.label}}">{{stat.label}}</p>
-              {{stat.value}}
-          </div>
-        </div>
-      </ng-container>
-
-      <ng-container *ngIf="newStats.length === 0">
-        <div class="stats" *ngFor="let label of ['HP', 'ATK', 'DEF', 'SpA', 'SpD', 'SPD', 'TOT']">
-          <div class="stat">
-              <p class="{{label}}">{{label}}</p>
-              0
-          </div>
-        </div>
-      </ng-container>
-    </div>
-
-    <div class="evolutionChain">
-      <h4>EVOLUTION CHAIN</h4>
-      <div class="evolutionChain-container" *ngIf="evolutionChain.length > 0">
-        <div class="evolutionChain-item" *ngFor="let item of evolutionChain; let i = index">
-          <div class="item">
-            <div class="evolutionChain-item__image">
-              <img [src]="getPokemonImageEvolution(item.id)" alt="{{item.name}}">
-            </div>
-            <div class="evolutionChain-item__name">
-              <p>{{item.name}}</p>
-            </div>
-          </div>
-          <img class="arrow-evolution" *ngIf="i < evolutionChain.length - 1" src="assets/icon/arrow-evolution.png" alt="Arrow for evolution">
-        </div>
-      </div>
+    <app-info-pokedex
+      [description]="description"
+      [abilities]="abilities"
+      [height]="height"
+      [weight]="weight"
+      [stats]="stats"
+      [baseExperience]="baseExperience"
+      [captureRate]="captureRate">
+    </app-info-pokedex>
 
       <div class="evolutionChain-container" *ngIf="evolutionChain.length === 0">
         <div class="evolutionChain-item" *ngFor="let item of pokemonEvolutionSilhueta; let i = index">
