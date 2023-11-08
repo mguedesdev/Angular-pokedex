@@ -20,6 +20,7 @@ export class HomeComponent {
   displayedPokemons: any[] = [];
   selectedPokemon: any | null = {};
   showFilter = false;
+  showViewer = false;
 
   @ViewChild(PokedexViewerComponent, { static: false }) pokedexViewer!: PokedexViewerComponent;
 

@@ -92,7 +92,6 @@
   left: -10%;
   width: 30%;
   z-index: -1;
-
 }
 
 .filter_item_select {
@@ -178,6 +177,7 @@
   .home_filter.open {
     left: 0;
   }
+
 }
 
 

@@ -5,13 +5,11 @@
   <div class="home_content" >
     <div class="filter_item_select">
       <button class="open_filter_button" (click)="toggleFilter()">Filters</button>
-
     </div>
 
     <div class="home_filter" [class.open]="showFilter">
       <app-filter (closeFilter)="toggleFilter()" (searchTermChanged)="filterPokemons($event)" ></app-filter>
       <button class="close_filter" (click)="toggleFilter()"></button>
-
     </div>
 
     <div class="home_pokemon__list">
@@ -39,18 +37,20 @@
     </div>
   </div>
 
-  <app-pokedex-viewer
-    [imageUrl]="selectedPokemon?.sprites?.other['official-artwork']?.front_default ?? ''"
-    [name]="selectedPokemon?.name ?? ''"
-    [id]="selectedPokemon?.id ?? 0"
-    [types]="getPokemonTypes(selectedPokemon)"
-    [height]="selectedPokemon?.height ?? 0"
-    [weight]="selectedPokemon?.weight ?? 0"
-    [abilities]="selectedPokemon?.abilities ?? []"
-    [stats]="selectedPokemon?.stats ?? []"
-    [baseExperience]="selectedPokemon.base_experience"
-    [pokemons]="pokemons"
-  ></app-pokedex-viewer>
+  <div class="home_pokedex_viewer" [class.open]="showViewer">
+    <app-pokedex-viewer
+      [imageUrl]="selectedPokemon?.sprites?.other['official-artwork']?.front_default ?? ''"
+      [name]="selectedPokemon?.name ?? ''"
+      [id]="selectedPokemon?.id ?? 0"
+      [types]="getPokemonTypes(selectedPokemon)"
+      [height]="selectedPokemon?.height ?? 0"
+      [weight]="selectedPokemon?.weight ?? 0"
+      [abilities]="selectedPokemon?.abilities ?? []"
+      [stats]="selectedPokemon?.stats ?? []"
+      [baseExperience]="selectedPokemon.base_experience"
+      [pokemons]="pokemons"
+    ></app-pokedex-viewer>
+  </div>
 
 </div>
 
