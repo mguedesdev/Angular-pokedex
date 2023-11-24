@@ -42,7 +42,7 @@
 
   <h4>STATS</h4>
   <div class="stats-container">
-    <ng-container *ngIf="newStats.length > 0">
+    <ng-container *ngIf="newStats.length > 1">
       <div class="stats" *ngFor="let stat of newStats">
         <div class="stat">
             <p class="{{stat.label}}">{{stat.label}}</p>
@@ -51,7 +51,7 @@
       </div>
     </ng-container>
 
-    <ng-container *ngIf="newStats.length === 0">
+    <ng-container *ngIf="newStats.length <= 1">
       <div class="stats" *ngFor="let label of ['HP', 'ATK', 'DEF', 'SpA', 'SpD', 'SPD', 'TOT']">
         <div class="stat">
             <p class="{{label}}">{{label}}</p>
