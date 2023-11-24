@@ -75,7 +75,7 @@ export class FilterComponent implements OnInit {
         break;
       case 'generation':
         this.generation = value.toString();
-        this.selectedGenerationLabel = value === 'all' ? 'All' : `${value}th Generation`;
+        this.selectedGenerationLabel = value === 'all' ? 'All' : `${value}th Gen`;
         break;
     }
     this.dropdowns[dropdownName] = false;

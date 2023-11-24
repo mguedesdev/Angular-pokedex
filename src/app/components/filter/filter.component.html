@@ -1,6 +1,7 @@
 
 <div class="filter_container">
     <div class="filter_item_input">
+
       <input type="text" id="filter_name" placeholder="Search your pokemon" [(ngModel)]="searchTerm" (input)="onSearchTermChange()">
     </div>
 
@@ -87,7 +88,7 @@
             <div class="options" *ngIf="dropdowns.generation">
                 <div class="option" (click)="selectOption('generation', 'all')">All</div>
                 <div class="option" *ngFor="let gen of [1,2,3,4,5,6,7,8,9]" (click)="selectOption('generation', gen)">
-                    {{ gen }}th Generation
+                    {{ gen }}th Gen
                 </div>
             </div>
         </div>
